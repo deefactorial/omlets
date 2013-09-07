@@ -1,0 +1,2 @@
+serviceClass: org.openmoney.omlets.gwt.client.GreetingService
+path: 00D925E8D24761F8F7C9558B300A9BD6.gwt.rpc
