@@ -1,153 +1,195 @@
+/*
+   This file is part of Cyclos.
+
+   Cyclos is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
+
+   Cyclos is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with Cyclos; if not, write to the Free Software
+   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+
+ */
 package org.openmoney.omlets.gwt.client;
 
-import org.openmoney.omlets.gwt.shared.FieldVerifier;
+import org.openmoney.omlets.gwt.client.model.AppState;
+import org.openmoney.omlets.gwt.client.model.GeneralData;
+import org.openmoney.omlets.gwt.client.ui.MainLayout;
+import org.openmoney.omlets.gwt.client.ui.PageAnchor;
+import org.openmoney.omlets.gwt.client.utils.ErrorHandler;
+import org.openmoney.omlets.gwt.client.utils.Storage;
+import org.openmoney.omlets.gwt.client.utils.StringHelper;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyUpEvent;
-import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.VerticalPanel;
+import com.googlecode.gwtphonegap.client.PhoneGap;
+import com.googlecode.gwtphonegap.client.PhoneGapAvailableEvent;
+import com.googlecode.gwtphonegap.client.PhoneGapAvailableHandler;
+import com.googlecode.gwtphonegap.client.PhoneGapTimeoutEvent;
+import com.googlecode.gwtphonegap.client.PhoneGapTimeoutHandler;
 
 /**
- * Entry point classes define <code>onModuleLoad()</code>.
+ * Entry point for the Cyclos mobile application.
+ * 
+ * @author luis
  */
 public class Omlets_mobile implements EntryPoint {
-	/**
-	 * The message displayed to the user when the server cannot be reached or
-	 * returns an error.
-	 */
-	private static final String SERVER_ERROR = "An error occurred while "
-			+ "attempting to contact the server. Please check your network "
-			+ "connection and try again.";
+
+	private static Omlets_mobile instance;
+
+	public static Omlets_mobile get() {
+		return instance;
+	}
+
+	private static MainLayout mainLayout;
+	private GeneralData generalData;
+	private PhoneGap phoneGap;
 
 	/**
-	 * Create a remote service proxy to talk to the server-side Greeting service.
+	 * Returns the current application state
 	 */
-	private final GreetingServiceAsync greetingService = GWT
-			.create(GreetingService.class);
+	public AppState getAppState() {
+		if (!Configuration.get().isServerConfigured()) {
+			return AppState.SERVER_NOT_CONFIGURED;
+		} else if (generalData == null) {
+			return AppState.SERVER_DATA_NOT_LOADED;
+		} else if (!LoggedUser.get().isLoggedIn()) {
+			return AppState.NO_LOGGED_USER;
+		}
+		return AppState.READY;
+	}
 
 	/**
-	 * This is the entry point method.
+	 * Returns application general data retrieved in rest service
 	 */
+	public GeneralData getGeneralData() {
+		return generalData;
+	}
+
+	/**
+	 * Returns main layout which holds the application's visual elements
+	 */
+	public MainLayout getMainLayout() {
+		return mainLayout;
+	}
+
+	/**
+	 * Returns PhoneGapp component
+	 */
+	public PhoneGap getPhoneGap() {
+		return phoneGap;
+	}
+
+	@Override
 	public void onModuleLoad() {
-		final Button sendButton = new Button("Send");
-		final TextBox nameField = new TextBox();
-		nameField.setText("GWT User");
-		final Label errorLabel = new Label();
+		instance = this;
 
-		// We can add style names to widgets
-		sendButton.addStyleName("sendButton");
+		initApplication();
+	}
 
-		// Add the nameField and sendButton to the RootPanel
-		// Use RootPanel.get() to get the entire body element
-		RootPanel.get("nameFieldContainer").add(nameField);
-		RootPanel.get("sendButtonContainer").add(sendButton);
-		RootPanel.get("errorLabelContainer").add(errorLabel);
+	/**
+	 * Initializes the mobile application
+	 */
+	private void initApplication() {
 
-		// Focus the cursor on the name field when the app loads
-		nameField.setFocus(true);
-		nameField.selectAll();
-
-		// Create the popup dialog box
-		final DialogBox dialogBox = new DialogBox();
-		dialogBox.setText("Remote Procedure Call");
-		dialogBox.setAnimationEnabled(true);
-		final Button closeButton = new Button("Close");
-		// We can set the id of a widget by accessing its Element
-		closeButton.getElement().setId("closeButton");
-		final Label textToServerLabel = new Label();
-		final HTML serverResponseLabel = new HTML();
-		VerticalPanel dialogVPanel = new VerticalPanel();
-		dialogVPanel.addStyleName("dialogVPanel");
-		dialogVPanel.add(new HTML("<b>Sending name to the server:</b>"));
-		dialogVPanel.add(textToServerLabel);
-		dialogVPanel.add(new HTML("<br><b>Server replies:</b>"));
-		dialogVPanel.add(serverResponseLabel);
-		dialogVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_RIGHT);
-		dialogVPanel.add(closeButton);
-		dialogBox.setWidget(dialogVPanel);
-
-		// Add a handler to close the DialogBox
-		closeButton.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				dialogBox.hide();
-				sendButton.setEnabled(true);
-				sendButton.setFocus(true);
+		GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler() {
+			@Override
+			public void onUncaughtException(Throwable e) {
+				ErrorHandler.handle(e);
 			}
 		});
 
-		// Create a handler for the sendButton and nameField
-		class MyHandler implements ClickHandler, KeyUpHandler {
-			/**
-			 * Fired when the user clicks on the sendButton.
-			 */
-			public void onClick(ClickEvent event) {
-				sendNameToServer();
-			}
+		phoneGap = GWT.create(PhoneGap.class);
+		phoneGap.addHandler(new PhoneGapAvailableHandler() {
+			@Override
+			public void onPhoneGapAvailable(PhoneGapAvailableEvent event) {
 
-			/**
-			 * Fired when the user types in the nameField.
-			 */
-			public void onKeyUp(KeyUpEvent event) {
-				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-					sendNameToServer();
+				String splash = Storage.get().getItem("splash");
+
+				// If there is no splash screen available to display, start the
+				// application
+				if (StringHelper.isEmpty(splash)) {
+					startApplication();
+				} else {
+					// Wait for the splash screen
+					Timer t = new Timer() {
+						@Override
+						public void run() {
+							startApplication();
+						}
+					};
+					t.schedule(2000);
 				}
 			}
+		});
 
-			/**
-			 * Send the name from the nameField to the server and wait for a response.
-			 */
-			private void sendNameToServer() {
-				// First, we validate the input.
-				errorLabel.setText("");
-				String textToServer = nameField.getText();
-				if (!FieldVerifier.isValidName(textToServer)) {
-					errorLabel.setText("Please enter at least four characters");
-					return;
-				}
-
-				// Then, we send the input to the server.
-				sendButton.setEnabled(false);
-				textToServerLabel.setText(textToServer);
-				serverResponseLabel.setText("");
-				greetingService.greetServer(textToServer,
-						new AsyncCallback<String>() {
-							public void onFailure(Throwable caught) {
-								// Show the RPC error message to the user
-								dialogBox
-										.setText("Remote Procedure Call - Failure");
-								serverResponseLabel
-										.addStyleName("serverResponseLabelError");
-								serverResponseLabel.setHTML(SERVER_ERROR);
-								dialogBox.center();
-								closeButton.setFocus(true);
-							}
-
-							public void onSuccess(String result) {
-								dialogBox.setText("Remote Procedure Call");
-								serverResponseLabel
-										.removeStyleName("serverResponseLabelError");
-								serverResponseLabel.setHTML(result);
-								dialogBox.center();
-								closeButton.setFocus(true);
-							}
-						});
+		phoneGap.addHandler(new PhoneGapTimeoutHandler() {
+			@Override
+			public void onPhoneGapTimeout(PhoneGapTimeoutEvent event) {
+				throw new IllegalStateException(Messages.Accessor.get()
+						.loadingApplicationError());
 			}
+		});
+		phoneGap.initializePhoneGap(30 * 1000); // 30 seconds
+	}
+
+	/**
+	 * Sets application general data
+	 */
+	public void setGeneralData(GeneralData generalData) {
+		this.generalData = generalData;
+	}
+
+	/**
+	 * Initialize main layout and starts application
+	 */
+	private void startApplication() {
+
+		// Override opaque class and set principal class
+		RootPanel.getBodyElement().setClassName("principal");
+
+		// Remove loading element
+		Element loading = DOM.getElementById("loading");
+		if (loading != null) {
+			DOM.removeChild(RootPanel.getBodyElement(), loading);
 		}
 
-		// Add a handler to send the name to the server
-		MyHandler handler = new MyHandler();
-		sendButton.addClickHandler(handler);
-		nameField.addKeyUpHandler(handler);
+		mainLayout = new MainLayout();
+		mainLayout.apply(RootPanel.get());
+
+		loadInitialPage();
 	}
+
+	/**
+	 * Load initial page
+	 */
+	private void loadInitialPage() {
+		switch (getAppState()) {
+		case SERVER_NOT_CONFIGURED:
+			Navigation.get().goNoHistory(PageAnchor.CONFIGURATION);
+			break;
+		case SERVER_DATA_NOT_LOADED:
+			Navigation.get().goNoHistory(PageAnchor.LOAD_GENERAL_DATA);
+			break;
+		default:
+			Navigation.get().loadInitialPage();
+		}
+	}
+
+	/**
+	 * Reloads the application
+	 */
+	public native void reloadApplication() /*-{
+		$wnd.reloadApp();
+	}-*/;
 }
