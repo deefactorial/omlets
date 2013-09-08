@@ -19,13 +19,13 @@
 
 package org.openmoney.omlets;
 
+import org.apache.cordova.DroidGap;
+
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebSettings.ZoomDensity;
-
-import org.apache.cordova.*;
 
 public class omletsActivity extends DroidGap
 {
