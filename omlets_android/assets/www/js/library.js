@@ -32,7 +32,7 @@ function onDeviceReady() {
 }
 // Setup GWT 
 function setupGWT() {
-	loadScript('omlets_mobile/omlets_mobile.nocache.js');   
+	loadScript('omlets/omlets.nocache.js');   
 }
 // Setup the correct cordova.js library depending on the device
 function setupCordova() {	
