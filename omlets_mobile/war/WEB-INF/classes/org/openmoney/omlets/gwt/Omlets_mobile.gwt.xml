@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- When updating your version of GWT, you should also update this DTD reference, 
+	so that your app can take advantage of the latest GWT module capabilities. -->
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.5.1//EN"
+  "http://google-web-toolkit.googlecode.com/svn/tags/2.5.1/distro-source/core/src/gwt-module.dtd">
+<module rename-to='omlets'>
+	<inherits name="com.google.gwt.user.User" />
+	<inherits name='com.googlecode.gwtphonegap.PhoneGap' />
+	<inherits name="com.google.gwt.i18n.CldrLocales" />
+	<source path="client" />
+	<entry-point class="org.openmoney.omlets.gwt.client.Omlets_mobile" />
+	<replace-with
+		class="org.openmoney.omlets.gwt.client.services.AccessServiceImpl">
+		<when-type-is class="org.openmoney.omlets.gwt.client.services.AccessService" />
+	</replace-with>
+	<replace-with
+		class="org.openmoney.omlets.gwt.client.services.AccountServiceImpl">
+		<when-type-is
+			class="org.openmoney.omlets.gwt.client.services.AccountService" />
+	</replace-with>
+	<replace-with
+		class="org.openmoney.omlets.gwt.client.services.ContactServiceImpl">
+		<when-type-is
+			class="org.openmoney.omlets.gwt.client.services.ContactService" />
+	</replace-with>
+	<replace-with
+		class="org.openmoney.omlets.gwt.client.services.ConfigurationServiceImpl">
+		<when-type-is
+			class="org.openmoney.omlets.gwt.client.services.ConfigurationService" />
+	</replace-with>
+	<replace-with
+		class="org.openmoney.omlets.gwt.client.services.GeneralServiceImpl">
+		<when-type-is
+			class="org.openmoney.omlets.gwt.client.services.GeneralService" />
+	</replace-with>
+	<replace-with
+		class="org.openmoney.omlets.gwt.client.services.PaymentServiceImpl">
+		<when-type-is
+			class="org.openmoney.omlets.gwt.client.services.PaymentService" />
+	</replace-with>
+	<replace-with
+		class="org.openmoney.omlets.gwt.client.services.UserServiceImpl">
+		<when-type-is class="org.openmoney.omlets.gwt.client.services.UserService" />
+	</replace-with>
+	<extend-property name="locale"
+		values="en,nl,es,pt,it,de,fr,ru,el,zh,ja,cs" />
+	<set-property-fallback name="locale" value="en" />
+	<set-property name="locale" value="en,nl,es,pt,it,de,fr,ru,el,zh,ja,cs" />
+	<set-property name="gwt.logging.popupHandler" value="DISABLED" />
+	<set-property name="gwt.logging.enabled" value="FALSE" />
+	<set-property name="user.agent" value="safari" />
+	<set-property name="phonegap.env" value="yes" />
+	<add-linker name="xsiframe" />
+</module>
