@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns	= "http://www.w3.org/ns/widgets"
 	xmlns:gap	= "http://phonegap.com/ns/1.0"
-	id			= "org.openmoney.omlets"
-	version 	= "1.0.0"
-	versionCode = "1">
+	id			= "nl.strohalm.cyclos"
+	version 	= "1.2.0"
+	versionCode = "3">
 	
     <!-- Essential Properties -->
-	<name>omlets</name>
+	<name>Cyclos</name>
 	
 	<description>
-		Mobile phone application for open money omlets
+		Mobile phone application for Cyclos
 	</description>
 
-	<author href="http://www.openmoney.org"
-			email="deefactorial@gmail.com">
-			open money LETSystem
+	<author href="http://www.cyclos.org"
+			email="info@cyclos.org">
+			Social Trade Organisation
 	</author>
 	
 	<!--  Preferences -->
