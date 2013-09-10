@@ -13,6 +13,7 @@ public class Cyclos3_mobile_androidActivity extends DroidGap {
     @Override
     public void onCreate(Bundle savedInstanceState) {        
         super.onCreate(savedInstanceState);
+        super.setIntegerProperty("loadUrlTimeoutValue", 70000);
         super.loadUrl("file:///android_asset/www/index.html");
         WebSettings settings = appView.getSettings();
         settings.setBuiltInZoomControls(false);
