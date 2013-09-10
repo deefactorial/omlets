@@ -1,2 +1,4 @@
 # Module cyclos
 # RPC service class, partial path of RPC policy file
+com.googlecode.gwtphonegap.client.log.shared.PhoneGapLogService, 12A49F563F6A3DC8C69E94E6141D57FC.gwt.rpc
+com.google.gwt.logging.shared.RemoteLoggingService, 8AF796F8AAFC282EC0C27CBBF919A30A.gwt.rpc
