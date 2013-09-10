@@ -1,4 +1,4 @@
-<project name="cyclos3_mobile" basedir=".">
+<project name="omlets_mobile" basedir=".">
     
     <!-- Build Android application -->
 	<target name="build-android">    
@@ -81,11 +81,11 @@
 	<!-- Build and deploy application to Android Project -->
 	<target name="deploy-android" depends="build-android">	  
 	     <delete>
-   			<fileset dir="../cyclos3_mobile_android/assets/www">
+   			<fileset dir="../omlets_android/assets/www">
       			<include name="**/*"/>
    			</fileset>
 		</delete>   	   	    	    	    
-	    <copy todir="../cyclos3_mobile_android/assets/www" >  
+	    <copy todir="../omlets_android/assets/www" >  
         	<fileset dir="deploy/android/www" excludes="**/*.svn"/>  
         </copy>      		
 	</target>
