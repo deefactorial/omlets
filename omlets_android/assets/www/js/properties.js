@@ -29,6 +29,6 @@
  */
 var options = {
 		version: "1.2.0",
-		hostUrl: "http://cyclos.proudleo.com:8080/cyclos",
+		hostUrl: "http://openmoney.proudleo.com",
 		splashScreen: false
 };
