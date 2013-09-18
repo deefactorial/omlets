@@ -63,20 +63,20 @@ public class PaymentsPage extends Page {
         LabelField receiver = new LabelField(messages.makePayment());
         receiver.addStyleName("payment-label-field");
         
-        IconButton selectSystem = new IconButton(messages.toSystemAccount(), Icon.SYSTEM.image(), true);
-        selectSystem.addClickHandler(getSelectSystemAccountHandler());
-        selectSystem.setVisible(canMakeSystemPayments);              
-        
-        IconButton selectContact = new IconButton(messages.toMyContact(), Icon.CONTACT_SELECT.image(), true);
-        selectContact.addClickHandler(getSelectContactHandler());
-        selectContact.setVisible(canMakeMemberPayments);
+//        IconButton selectSystem = new IconButton(messages.toSystemAccount(), Icon.SYSTEM.image(), true);
+//        selectSystem.addClickHandler(getSelectSystemAccountHandler());
+//        selectSystem.setVisible(canMakeSystemPayments);              
+//        
+//        IconButton selectContact = new IconButton(messages.toMyContact(), Icon.CONTACT_SELECT.image(), true);
+//        selectContact.addClickHandler(getSelectContactHandler());
+//        selectContact.setVisible(canMakeMemberPayments);
         
         username = new TextField(messages.orTypeUserNameHere());
         username.setVisible(canMakeMemberPayments);                
         
         container.add(receiver);
-        container.add(selectSystem);
-        container.add(selectContact);
+//        container.add(selectSystem);
+//        container.add(selectContact);
         container.add(username);
         
         if(!canMakeSystemPayments && !canMakeMemberPayments) {
