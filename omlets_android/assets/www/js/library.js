@@ -67,7 +67,7 @@ function writeCss(path) {
 function loadScript(path) {
     var script = document.createElement('script');
     script.setAttribute('src', path);
-    var body = document.getElementsByTagName("head")[0];
+    var body = document.getElementsByTagName("body")[0];
     body.appendChild(script);    
 }
 // Returns if the device browser is Blackberry based
