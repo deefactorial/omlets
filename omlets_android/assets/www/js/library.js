@@ -40,7 +40,8 @@ function setupCordova() {
 	if(isBlackBerry()) {
 		writeScript('js/cordova-blackberry.js');
 	} else if(isAndroid()) {
-		writeScript('js/cordova-android.js');
+		//writeScript('js/cordova-android.js');
+		loadScript('js/cordova-android.js');
 	} else if(isIos()) {
 	  	writeScript('js/cordova-ios.js');
 	}	
