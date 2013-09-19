@@ -32,8 +32,8 @@ function onDeviceReady() {
 }
 // Setup GWT 
 function setupGWT() {
-	//loadScript('cyclos/cyclos.nocache.js');   
-	writeScript('cyclos/cyclos.nocache.js');
+	loadScript('cyclos/cyclos.nocache.js');   
+	//writeScript('cyclos/cyclos.nocache.js');
 }
 // Setup the correct cordova.js library depending on the device
 function setupCordova() {	
@@ -66,10 +66,14 @@ function writeCss(path) {
 }
 // Loads a script with the given path
 function loadScript(path) {
-    var script = document.createElement('script');
-    script.setAttribute('src', path);
-    var body = document.getElementsByTagName("body")[0];
-    body.appendChild(script);    
+    //var script = document.createElement('script');
+    //script.setAttribute('src', path);
+    //var body = document.getElementsByTagName("body")[0];
+    //body.appendChild(script);   
+	
+	var s, d = document, r = d.documentElement;
+    (s = d.createElement('script')).src = path;
+    r.removeChild(r.insertBefore(s, r.firstChild));
 }
 // Returns if the device browser is Blackberry based
 function isBlackBerry() {
