@@ -357,8 +357,16 @@ function setupLanguage() {
 		var meta = document.createElement('meta');
 		meta.setAttribute('name', 'gwt:property');
 		meta.setAttribute('content', 'locale=' + locale);
-		var body = document.getElementsByTagName("head")[0];
-	    body.appendChild(meta);
+//		var body = document.getElementsByTagName("head")[0];
+//	    body.appendChild(meta);
+	    
+		//souders.com/blog/2010/05/11/appendchild-vs-insertbefore/
+		
+		head = document.getElementsByTagName ("head")[0] || 
+	    document.documentElement;
+		// Use insertBefore instead of appendChild to circumvent an IE6 bug.
+		// This arises when a base node is used (#2709 and #4378).
+		head.insertBefore(meta, head.firstChild);
 	}
 }
 // Preloads the given image
