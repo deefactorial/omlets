@@ -33,17 +33,18 @@ function onDeviceReady() {
 // Setup GWT 
 function setupGWT() {
 	loadScript('cyclos/cyclos.nocache.js');   
-	//writeScript('cyclos/cyclos.nocache.js');
 }
 // Setup the correct cordova.js library depending on the device
 function setupCordova() {	
 	if(isBlackBerry()) {
-		writeScript('js/cordova-blackberry.js');
+		//writeScript('js/cordova-blackberry.js');
+		loadScript('js/cordova-blackberry.js');
 	} else if(isAndroid()) {
 		//writeScript('js/cordova-android.js');
 		loadScript('js/cordova-android.js');
 	} else if(isIos()) {
-	  	writeScript('js/cordova-ios.js');
+	  	//writeScript('js/cordova-ios.js');
+		loadScript('js/cordova-ios.js');
 	}	
 }
 // Setup custom styles
@@ -69,10 +70,10 @@ function writeCss(path) {
 function loadScript(path) {
     var script = document.createElement('script');
     script.setAttribute('src', path);
-    //var body = document.getElementsByTagName("body")[0];
-    //body.appendChild(script);   
+    //var body = document.getElementsByTagName("head")[0];
+    //body.appendChild(script);    
     
-    //souders.com/blog/2010/05/11/appendchild-vs-insertbefore/
+    //http://www.stevesouders.com/blog/2010/05/11/appendchild-vs-insertbefore/
 
 	head = document.getElementsByTagName ("head")[0] || 
     document.documentElement;
@@ -360,7 +361,7 @@ function setupLanguage() {
 //		var body = document.getElementsByTagName("head")[0];
 //	    body.appendChild(meta);
 	    
-		//souders.com/blog/2010/05/11/appendchild-vs-insertbefore/
+		//http://www.stevesouders.com/blog/2010/05/11/appendchild-vs-insertbefore/
 		
 		head = document.getElementsByTagName ("head")[0] || 
 	    document.documentElement;

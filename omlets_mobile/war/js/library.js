@@ -37,12 +37,14 @@ function setupGWT() {
 // Setup the correct cordova.js library depending on the device
 function setupCordova() {	
 	if(isBlackBerry()) {
-		writeScript('js/cordova-blackberry.js');
+		//writeScript('js/cordova-blackberry.js');
+		loadScript('js/cordova-blackberry.js');
 	} else if(isAndroid()) {
 		//writeScript('js/cordova-android.js');
 		loadScript('js/cordova-android.js');
 	} else if(isIos()) {
-	  	writeScript('js/cordova-ios.js');
+	  	//writeScript('js/cordova-ios.js');
+		loadScript('js/cordova-ios.js');
 	}	
 }
 // Setup custom styles
@@ -71,7 +73,7 @@ function loadScript(path) {
     //var body = document.getElementsByTagName("head")[0];
     //body.appendChild(script);    
     
-    //souders.com/blog/2010/05/11/appendchild-vs-insertbefore/
+    //http://www.stevesouders.com/blog/2010/05/11/appendchild-vs-insertbefore/
 
 	head = document.getElementsByTagName ("head")[0] || 
     document.documentElement;
@@ -356,8 +358,16 @@ function setupLanguage() {
 		var meta = document.createElement('meta');
 		meta.setAttribute('name', 'gwt:property');
 		meta.setAttribute('content', 'locale=' + locale);
-		var body = document.getElementsByTagName("head")[0];
-	    body.appendChild(meta);
+//		var body = document.getElementsByTagName("head")[0];
+//	    body.appendChild(meta);
+	    
+		//http://www.stevesouders.com/blog/2010/05/11/appendchild-vs-insertbefore/
+		
+		head = document.getElementsByTagName ("head")[0] || 
+	    document.documentElement;
+		// Use insertBefore instead of appendChild to circumvent an IE6 bug.
+		// This arises when a base node is used (#2709 and #4378).
+		head.insertBefore(meta, head.firstChild);
 	}
 }
 // Preloads the given image
