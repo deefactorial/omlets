@@ -70,6 +70,8 @@ function writeCss(path) {
 function loadScript(path) {
     var script = document.createElement('script');
     script.setAttribute('src', path);
+    script.type = 'text/javascript';
+    script.async = true;
     //var body = document.getElementsByTagName("head")[0];
     //body.appendChild(script);    
     
