@@ -32,7 +32,8 @@ function onDeviceReady() {
 }
 // Setup GWT 
 function setupGWT() {
-	loadScript('cyclos/cyclos.nocache.js');   
+	//loadScript('cyclos/cyclos.nocache.js');   
+	writeScript('cyclos/cyclos.nocache.js');
 }
 // Setup the correct cordova.js library depending on the device
 function setupCordova() {	
