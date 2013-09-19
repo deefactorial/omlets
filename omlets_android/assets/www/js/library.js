@@ -66,14 +66,18 @@ function writeCss(path) {
 }
 // Loads a script with the given path
 function loadScript(path) {
-    //var script = document.createElement('script');
-    //script.setAttribute('src', path);
+    var script = document.createElement('script');
+    script.setAttribute('src', path);
     //var body = document.getElementsByTagName("body")[0];
     //body.appendChild(script);   
-	
-	var s, d = document, r = d.documentElement;
-    (s = d.createElement('script')).src = path;
-    r.removeChild(r.insertBefore(s, r.firstChild));
+    
+    //souders.com/blog/2010/05/11/appendchild-vs-insertbefore/
+
+	head = document.getElementsByTagName ("head")[0] || 
+    document.documentElement;
+	// Use insertBefore instead of appendChild to circumvent an IE6 bug.
+	// This arises when a base node is used (#2709 and #4378).
+	head.insertBefore(script, head.firstChild);
 }
 // Returns if the device browser is Blackberry based
 function isBlackBerry() {

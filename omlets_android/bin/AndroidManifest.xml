@@ -19,7 +19,7 @@
         <activity
             android:configChanges="orientation|keyboardHidden" 
             android:allowClearUserData="true"
-            android:name=".Cyclos3_mobile_androidActivity"
+            android:name="Cyclos3_mobile_androidActivity"
             android:label="@string/app_name" 
             android:windowSoftInputMode="adjustPan" >        
             <intent-filter>
