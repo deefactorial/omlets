@@ -30,5 +30,6 @@
 var options = {
 		version: "1.2.0",
 		hostUrl: "http://openmoney.proudleo.com",
-		splashScreen: false
+		splashScreen: false,
+		sessionTimeout: 900
 };
