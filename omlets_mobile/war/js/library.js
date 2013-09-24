@@ -20,15 +20,26 @@
 
 // Initialize application
 function initApp() {
-	setupViewport();
-    splashScreen();  	
+	//setupViewport();
+    //splashScreen();  	
 	setupLanguage();
 	setupGWT();
 	onDeviceReady();
 }
 // Initialize PhoneGap
 function onDeviceReady() {
-	document.addEventListener('deviceready', (function() { PhoneGap.available = true; }), false); 	
+	document.addEventListener('deviceready', (function() { 
+		console.log("phonegap ready");
+		if (typeof cordova != 'undefined') {
+			cordova.available = true;
+		}
+		if (typeof Phonegap != 'undefined') {
+			Phonegap.available = true;
+		}
+		if (typeof phonegap != 'undefined'){
+			phonegap.available = true;
+		}
+		}), false); 	
 }
 // Setup GWT 
 function setupGWT() {
@@ -37,16 +48,31 @@ function setupGWT() {
 // Setup the correct cordova.js library depending on the device
 function setupCordova() {	
 	if(isBlackBerry()) {
-		//writeScript('js/cordova-blackberry.js');
-		loadScript('js/cordova-blackberry.js');
+		writeScript('js/cordova-blackberry.js');
+		//loadScript('js/cordova-blackberry.js');
 	} else if(isAndroid()) {
-		//writeScript('js/cordova-android.js');
-		loadScript('js/cordova-android.js');
+		writeScript('js/cordova-android-3.0.js');
+		//loadScript('js/cordova-android.js');
 	} else if(isIos()) {
-	  	//writeScript('js/cordova-ios.js');
-		loadScript('js/cordova-ios.js');
-	}	
+	  	writeScript('js/cordova-ios.js');
+		//loadScript('js/cordova-ios.js');
+	} else {
+		//loadScript('js/cordova-android.js');
+		writeScript('js/cordova-android-3.0.js');
+	}
 }
+function isPhoneGap() {
+    return (cordova || PhoneGap || phonegap) 
+    && /^file:\/{3}[^\/]/i.test(window.location.href) 
+    && /ios|iphone|ipod|ipad|android/i.test(navigator.userAgent);
+}
+
+//if ( isPhoneGap() ) {
+//    alert("Running on PhoneGap!");
+//} else {
+//    alert("Not running on PhoneGap!");
+//}
+
 // Setup custom styles
 function setupStyles() {
 	// Imports styles from here because it can't be done 
@@ -71,7 +97,7 @@ function loadScript(path) {
     var script = document.createElement('script');
     script.setAttribute('src', path);
     script.type = 'text/javascript';
-    script.async = true;
+    //script.async = true;
     //var body = document.getElementsByTagName("head")[0];
     //body.appendChild(script);    
     

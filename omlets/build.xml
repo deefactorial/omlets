@@ -1,0 +1,71 @@
+<project name="omlets_mobile" basedir=".">
+    
+        <!-- Build Android application -->
+	<target name="build-phonegap">    
+	   <delete>
+   			<fileset dir="www">
+      			<include name="**/*"/>
+   			</fileset>
+		</delete>    
+	   	<mkdir dir="www/css" />
+	    <mkdir dir="www/cyclos" />
+	    <mkdir dir="www/images" />
+	    <mkdir dir="www/js" />	    
+	    <mkdir dir="www/res" />
+	    <mkdir dir="www/spec" />
+	    <copy todir="www/css" >  
+        	<fileset dir="war/css" excludes="**/*.svn"/>  
+        </copy>
+        <copy todir="www/cyclos" >  
+        	<fileset dir="war/cyclos" excludes="**/*.svn"/>  
+        </copy> 
+  		<copy todir="www/images" >  
+        	<fileset dir="war/images" excludes="**/*.svn,114.png,144.png,57.png,64.png"/>  
+        </copy> 
+ 		<copy todir="www/js" >  
+        	<fileset dir="war/js" excludes="**/*.svn,cordova-ios.js,cordova-blackberry.js"/>  
+        </copy>    
+        <copy todir="www/res" >  
+        	<fileset dir="war/res" excludes="**/*.svn"/>  
+        </copy>
+        <copy todir="www/spec" >  
+        	<fileset dir="war/spec" excludes="**/*.svn"/>  
+        </copy>      	       			
+ 		<copy file="war/index.html" todir="www/"/>
+ 		<copy file="war/config.xml" todir="www/"/>
+ 		<copy file="war/icon.png" todir="www/"/>
+ 		<copy file="war/spec.html" todir="www/"/>		
+	</target>
+    
+
+	
+		<!-- Build and deploy application to Android Project -->
+	<target name="deploy-android" depends="build-phonegap">	  
+	     <delete>
+   			<fileset dir="../omlets_android/">
+      			<include name="**/*"/>
+   			</fileset>
+		</delete>   	   	    	    	    
+	    <copy todir="../omlets_android/" >  
+        	<fileset dir="platforms/android" excludes="**/*.svn"/>  
+        </copy>      		
+	</target>
+	
+	<!-- Print available variables paths for task development -->
+	<target name="echo-variables">
+		<echo message="The operating system is: ${os.name}"/>  		
+		<!-- absolute path of the project. -->
+		<echo message="The home path is: ${basedir}"/>		
+		<!-- absolute path of the build file. -->
+		<echo message="The file name is: ${ant.file}"/>		
+		<!-- root directory of ant. -->
+		<echo message="The Project name is: ${ant.project.name}"/>
+		<echo message="The Ant home directory is: ${ant.home}"/>
+		<echo message="The Ant version is: ${ant.version}"/> 
+		<echo message="The Java version is: ${ant.java.version}"/>		
+		<!-- System properties. -->
+		<echo message="The Java home directory is: ${java.home}"/>
+		<echo message="The User home directory is: ${user.home}"/>
+		<echo message="The User name is: ${user.name}"/>
+	</target>
+</project>

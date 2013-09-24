@@ -1,5 +1,32 @@
 <project name="omlets_mobile" basedir=".">
     
+        <!-- Build Android application -->
+	<target name="build-phonegap">    
+	   <delete>
+   			<fileset dir="deploy/android">
+      			<include name="**/*"/>
+   			</fileset>
+		</delete>    
+	   	<mkdir dir="deploy/android/www/css" />
+	    <mkdir dir="deploy/android/www/cyclos" />
+	    <mkdir dir="deploy/android/www/images" />
+	    <mkdir dir="deploy/android/www/js" />	    
+	    <copy todir="deploy/android/www/css" >  
+        	<fileset dir="war/css" excludes="**/*.svn"/>  
+        </copy>
+        <copy todir="deploy/android/www/cyclos" >  
+        	<fileset dir="war/cyclos" excludes="**/*.svn"/>  
+        </copy> 
+  		<copy todir="deploy/android/www/images" >  
+        	<fileset dir="war/images" excludes="**/*.svn,114.png,144.png,57.png,64.png"/>  
+        </copy> 
+ 		<copy todir="deploy/android/www/js" >  
+        	<fileset dir="war/js" excludes="**/*.svn,cordova-ios.js,cordova-blackberry.js"/>  
+        </copy>        	       			
+ 		<copy file="war/index.html" todir="deploy/android/www/"/>		
+	</target>
+    
+    
     <!-- Build Android application -->
 	<target name="build-android">    
 	   <delete>
@@ -80,6 +107,18 @@
 	
 	<!-- Build and deploy application to Android Project -->
 	<target name="deploy-android" depends="build-android">	  
+	     <delete>
+   			<fileset dir="../omlets_android/assets/www">
+      			<include name="**/*"/>
+   			</fileset>
+		</delete>   	   	    	    	    
+	    <copy todir="../omlets_android/assets/www" >  
+        	<fileset dir="deploy/android/www" excludes="**/*.svn"/>  
+        </copy>      		
+	</target>
+	
+		<!-- Build and deploy application to Android Project -->
+	<target name="deploy-phonegap" depends="build-phonegap">	  
 	     <delete>
    			<fileset dir="../omlets_android/assets/www">
       			<include name="**/*"/>
