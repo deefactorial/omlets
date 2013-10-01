@@ -100,8 +100,8 @@ public class AccountDetailsPage extends Page {
         accountService.getAccountStatus(accountId, new BaseAsyncCallback<AccountStatus>() {
             @Override
             public void onSuccess(AccountStatus status) {
-                accountInformation.setSub(messages.lowerCreditLimit(status.getFormattedCreditLimit()), "account-information-sub");
-                accountInformation.setSub(messages.availableBalance(status.getFormattedAvailableBalance()), "account-information-sub");
+                //accountInformation.setSub(messages.lowerCreditLimit(status.getFormattedCreditLimit()), "account-information-sub");
+                //accountInformation.setSub(messages.availableBalance(status.getFormattedAvailableBalance()), "account-information-sub");
                 accountInformation.setValue(status.getFormattedBalance(), "account-information-value");
             }                
         });                           
@@ -141,7 +141,12 @@ public class AccountDetailsPage extends Page {
                 // Create row widget
                 AccountRow row = new AccountRow();
                 row.setHeading(name);
-                row.setSub(data.getFormattedProcessDate());
+                String description = data.getDescription();
+                if(description.length() > 30){
+                	description = description.substring(0, 30) + "...";
+                }
+                
+                row.setSub(data.getFormattedProcessDate() + " - " + description);
                 
                 boolean positiveAmount = data.getAmount() > 0d;
                 

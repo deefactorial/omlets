@@ -131,11 +131,12 @@ public class CyclosMobile implements EntryPoint {
                 }
             }
         });
-
         phoneGap.addHandler(new PhoneGapTimeoutHandler() {
             @Override
             public void onPhoneGapTimeout(PhoneGapTimeoutEvent event) {
-                throw new IllegalStateException(Messages.Accessor.get().loadingApplicationError());
+            	
+                //throw new IllegalStateException(Messages.Accessor.get().loadingApplicationError());
+            	startApplication();
             }
         });                              
         phoneGap.initializePhoneGap(30*1000); // 30 seconds
