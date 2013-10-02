@@ -139,7 +139,7 @@ public class CyclosMobile implements EntryPoint {
             	startApplication();
             }
         });                              
-        phoneGap.initializePhoneGap(30*1000); // 30 seconds
+        phoneGap.initializePhoneGap(32*1000); // 32 seconds
     }
    
     /**
