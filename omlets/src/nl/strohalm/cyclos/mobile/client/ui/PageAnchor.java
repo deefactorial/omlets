@@ -43,7 +43,10 @@ public enum PageAnchor {
     USERS(PageGroup.CONTACTS),
 //    USER_DETAILS(PageGroup.CONTACTS),
     USER_SEARCH(PageGroup.CONTACTS),
-    USER_SELECT(PageGroup.PAYMENTS);
+    USER_SELECT(PageGroup.PAYMENTS),
+    SETTINGS(PageGroup.SETTINGS),
+    SETTINGS_JOIN_CURRENCY(PageGroup.SETTINGS),
+    SETTINGS_CREATE_CURRENCY(PageGroup.SETTINGS);
     
     private PageGroup pageGroup;
     

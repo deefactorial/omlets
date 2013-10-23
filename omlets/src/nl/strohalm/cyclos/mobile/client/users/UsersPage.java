@@ -22,7 +22,6 @@ package nl.strohalm.cyclos.mobile.client.users;
 import java.util.Arrays;
 import java.util.List;
 
-import nl.strohalm.cyclos.mobile.client.Navigation;
 import nl.strohalm.cyclos.mobile.client.Notification;
 import nl.strohalm.cyclos.mobile.client.Notification.NotificationLayout;
 import nl.strohalm.cyclos.mobile.client.model.BasicMember;
@@ -30,7 +29,6 @@ import nl.strohalm.cyclos.mobile.client.model.Parameters;
 import nl.strohalm.cyclos.mobile.client.services.UserService;
 import nl.strohalm.cyclos.mobile.client.ui.Icon;
 import nl.strohalm.cyclos.mobile.client.ui.Page;
-import nl.strohalm.cyclos.mobile.client.ui.PageAnchor;
 import nl.strohalm.cyclos.mobile.client.ui.widgets.DataList;
 import nl.strohalm.cyclos.mobile.client.ui.widgets.UserRow;
 import nl.strohalm.cyclos.mobile.client.utils.PageAction;

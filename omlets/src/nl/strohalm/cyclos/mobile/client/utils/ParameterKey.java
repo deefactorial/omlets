@@ -48,5 +48,15 @@ public class ParameterKey {
     public static final String TRANSFER_TYPE_ID = "transferTypeId";
     public static final String TRANSFER_TYPE = "transferType";     
     public static final String VALUE = "value";
+    public static final String TRADING_NAME = "trading_name";
+    public static final String CURRENCY = "currency";
+    public static final String USER_SPACE_ID = "user_space_id";
+    public static final String SUCCESS = "success";
+    public static final String ERROR = "error";
+    public static final String ORDER_BY = "orderBy";
+    public static final String ORDER_DIRECTION = "orderDirection";
+    public static final String SECONDARY_ORDER_BY = "secondaryOrderBy";
+    public static final String SECONDARY_ORDER_DIRECTION = "secondaryOrderDirection";
+    
      
 }

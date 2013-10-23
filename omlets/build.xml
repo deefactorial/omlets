@@ -36,6 +36,42 @@
  		<copy file="war/icon.png" todir="www/"/>
  		<copy file="war/spec.html" todir="www/"/>		
 	</target>
+	
+	<target name="build-webclient">    
+	   <delete>
+   			<fileset dir="../../openmoney/webclient">
+      			<include name="**/*"/>
+   			</fileset>
+		</delete>    
+	   	<mkdir dir="../../openmoney/webclient/css" />
+	    <mkdir dir="../../openmoney/webclient/cyclos" />
+	    <mkdir dir="../../openmoney/webclient/images" />
+	    <mkdir dir="../../openmoney/webclient/js" />	    
+	    <mkdir dir="../../openmoney/webclient/res" />
+	    <mkdir dir="../../openmoney/webclient/spec" />
+	    <copy todir="../../openmoney/webclient/css" >  
+        	<fileset dir="war/css" excludes="**/*.svn"/>  
+        </copy>
+        <copy todir="../../openmoney/webclient/cyclos" >  
+        	<fileset dir="war/cyclos" excludes="**/*.svn"/>  
+        </copy> 
+  		<copy todir="../../openmoney/webclient/images" >  
+        	<fileset dir="war/images" excludes="**/*.svn,114.png,144.png,57.png,64.png"/>  
+        </copy> 
+ 		<copy todir="../../openmoney/webclient/js" >  
+        	<fileset dir="war/js" excludes="**/*.svn,cordova-ios.js,cordova-blackberry.js"/>  
+        </copy>    
+        <copy todir="../../openmoney/webclient/res" >  
+        	<fileset dir="war/res" excludes="**/*.svn"/>  
+        </copy>
+        <copy todir="../../openmoney/webclient/spec" >  
+        	<fileset dir="war/spec" excludes="**/*.svn"/>  
+        </copy>      	       			
+ 		<copy file="war/index.html" todir="../../openmoney/webclient/"/>
+ 		<copy file="war/config.xml" todir="../../openmoney/webclient/"/>
+ 		<copy file="war/icon.png" todir="../../openmoney/webclient/"/>
+ 		<copy file="war/spec.html" todir="../../openmoney/webclient/"/>		
+	</target>
     
 
 	

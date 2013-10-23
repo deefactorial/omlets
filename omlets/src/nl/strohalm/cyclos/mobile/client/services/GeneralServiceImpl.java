@@ -34,6 +34,6 @@ public class GeneralServiceImpl implements GeneralService {
 
     @Override
     public Request getGeneralData(AsyncCallback<GeneralData> callback) {
-        return new RestRequest<GeneralData>(RequestBuilder.GET, "general").send(callback);
+        return new RestRequest<GeneralData>(RequestBuilder.GET, "general/").send(callback);
     }
 }

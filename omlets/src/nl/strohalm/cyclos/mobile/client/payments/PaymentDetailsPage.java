@@ -29,12 +29,10 @@ import nl.strohalm.cyclos.mobile.client.LoggedUser;
 import nl.strohalm.cyclos.mobile.client.Navigation;
 import nl.strohalm.cyclos.mobile.client.Notification;
 import nl.strohalm.cyclos.mobile.client.model.BasicMember;
-import nl.strohalm.cyclos.mobile.client.model.Contact;
 import nl.strohalm.cyclos.mobile.client.model.CustomFieldValue;
 import nl.strohalm.cyclos.mobile.client.model.Parameters;
 import nl.strohalm.cyclos.mobile.client.model.Transfer;
 import nl.strohalm.cyclos.mobile.client.model.TransferData;
-import nl.strohalm.cyclos.mobile.client.services.ContactService;
 import nl.strohalm.cyclos.mobile.client.services.PaymentService;
 import nl.strohalm.cyclos.mobile.client.ui.Page;
 import nl.strohalm.cyclos.mobile.client.ui.PageAnchor;
@@ -42,11 +40,11 @@ import nl.strohalm.cyclos.mobile.client.ui.panels.SquarePanel;
 import nl.strohalm.cyclos.mobile.client.ui.widgets.FormField;
 import nl.strohalm.cyclos.mobile.client.utils.BaseAsyncCallback;
 import nl.strohalm.cyclos.mobile.client.utils.PageAction;
-import nl.strohalm.cyclos.mobile.client.utils.PageActionAsync;
 import nl.strohalm.cyclos.mobile.client.utils.ParameterKey;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsArray;
+import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -55,7 +53,7 @@ import com.google.gwt.user.client.ui.Widget;
 public class PaymentDetailsPage extends Page {
     
     private PaymentService paymentService = GWT.create(PaymentService.class);
-    private ContactService contactService = GWT.create(ContactService.class);
+    //private ContactService contactService = GWT.create(ContactService.class);
     
     private FormField form;
     private SquarePanel container;    
@@ -167,11 +165,12 @@ public class PaymentDetailsPage extends Page {
         JsArray<CustomFieldValue> customFieldValues = transfer.getCustomValues();
         
         String loggedName =  LoggedUser.get().getInitialData().getProfile().getName();
+        String mytransferNameFrom = transfer.getTransferType().getFrom().getName();
         String transferName = transfer.getBasicMember() == null ? transfer.getSystemAccountName() : transfer.getBasicMember().getName();
 
         // Set from and to
-        String from = transfer.getAmount() > 0 ? transferName : loggedName;
-        String to = transfer.getAmount() > 0 ? loggedName : transferName;
+        String from = transfer.getAmount() > 0 ? transferName : mytransferNameFrom;
+        String to = transfer.getAmount() > 0 ? mytransferNameFrom : transferName;
         
         Map<String, String> formData = new LinkedHashMap<String, String>();
         
@@ -180,8 +179,10 @@ public class PaymentDetailsPage extends Page {
         formData.put(messages.paymentNumber(), transfer.getTransactionNumber());
         formData.put(messages.from(), from);
         formData.put(messages.to(), to);
-        formData.put(messages.type(), transfer.getTransferType().getName());
-        formData.put(messages.amount(), transfer.getFormattedAmount());
+        //formData.put(messages.type(), transfer.getTransferType().getName());
+        NumberFormat numberFormat = NumberFormat.getFormat("###,###,###.00");
+        formData.put(messages.amount(),  numberFormat.format(Double.parseDouble(transfer.getFormattedAmount())));
+        formData.put("Currency", transfer.getTransferType().getFrom().getCurrency().getName());
         formData.put(messages.description(), transfer.getDescription()); 
         
         // Add custom fields

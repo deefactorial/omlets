@@ -26,6 +26,9 @@
 	<replace-with class="nl.strohalm.cyclos.mobile.client.services.UserServiceImpl">
 		<when-type-is class="nl.strohalm.cyclos.mobile.client.services.UserService"/>
 	</replace-with>	
+	<replace-with class="nl.strohalm.cyclos.mobile.client.services.SettingsServiceImpl">
+		<when-type-is class="nl.strohalm.cyclos.mobile.client.services.SettingsService"/>
+	</replace-with>	
 	<extend-property name="locale" values="en,nl,es,pt,it,de,fr,ru,el,zh,ja,cs"/>
    	<set-property-fallback name="locale" value="en"/>
    	<set-property name="locale" value="en,nl,es,pt,it,de,fr,ru,el,zh,ja,cs"/>			

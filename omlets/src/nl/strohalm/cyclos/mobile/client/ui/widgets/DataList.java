@@ -25,6 +25,7 @@ import java.util.List;
 
 import nl.strohalm.cyclos.mobile.client.CyclosMobile;
 import nl.strohalm.cyclos.mobile.client.Messages;
+import nl.strohalm.cyclos.mobile.client.model.AccountData;
 import nl.strohalm.cyclos.mobile.client.ui.Icon;
 import nl.strohalm.cyclos.mobile.client.utils.BaseAsyncCallback;
 import nl.strohalm.cyclos.mobile.client.utils.ComponentEventHelper;
@@ -44,6 +45,7 @@ import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.cellview.client.AbstractPager;
 import com.google.gwt.user.cellview.client.CellList;
+import com.google.gwt.user.cellview.client.LoadingStateChangeEvent;
 import com.google.gwt.user.cellview.client.HasKeyboardPagingPolicy.KeyboardPagingPolicy;
 import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSelectionPolicy;
 import com.google.gwt.user.client.Timer;
@@ -56,10 +58,12 @@ import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.AsyncDataProvider;
+import com.google.gwt.view.client.CellPreviewEvent;
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.HasRows;
 import com.google.gwt.view.client.NoSelectionModel;
 import com.google.gwt.view.client.Range;
+import com.google.gwt.view.client.RowCountChangeEvent;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SelectionChangeEvent.Handler;
 
@@ -96,6 +100,8 @@ public abstract class DataList<T extends JavaScriptObject> extends Composite {
         createScrollPanel();
         
         
+
+        
     }
     
     /**
@@ -114,6 +120,8 @@ public abstract class DataList<T extends JavaScriptObject> extends Composite {
             listContainer.add(footer);
         }
     }
+    
+    
     
     /**
      * May be override in order to add a header to the widget<br>
@@ -154,6 +162,11 @@ public abstract class DataList<T extends JavaScriptObject> extends Composite {
             }
         });
         
+
+        
+        
+        
+        
         // Initialize widget
         mainContainer.add(pager);
     }
@@ -182,19 +195,19 @@ public abstract class DataList<T extends JavaScriptObject> extends Composite {
             scrollPanel = new FlowPanel();
             scrollPanel.setStyleName("scroll-data");
             
-            SimplePanel up = new SimplePanel();
-            up.setStyleName("scroll-data-image");
-            up.setWidget(Icon.UP.image());       
-            
-            SimplePanel down = new SimplePanel();
-            down.setStyleName("scroll-data-image");
-            down.setWidget(Icon.DOWN.image());
-            
-            // Add scrolling events
-            ComponentEventHelper.addScrollEvents(up, down, pager.getElement().getId());
-            
-            scrollPanel.add(up);
-            scrollPanel.add(down);
+//            SimplePanel up = new SimplePanel();
+//            up.setStyleName("scroll-data-image");
+//            up.setWidget(Icon.UP.image());       
+//            
+//            SimplePanel down = new SimplePanel();
+//            down.setStyleName("scroll-data-image");
+//            down.setWidget(Icon.DOWN.image());
+//            
+//            // Add scrolling events
+//            ComponentEventHelper.addScrollEvents(up, down, pager.getElement().getId());
+//            
+//            scrollPanel.add(up);
+//            scrollPanel.add(down);
     
             mainContainer.add(scrollPanel);
         }
@@ -231,9 +244,10 @@ public abstract class DataList<T extends JavaScriptObject> extends Composite {
                     public void run() {
                         // Hide loading panel
                         loadingPanel.setVisible(false);
+                        resizeColumn();
                     }
                 };
-                t.schedule(2000);
+                t.schedule(125);
             } else {
                 // Otherwise hide the panel
                 loadingPanel.setVisible(false);
@@ -253,12 +267,17 @@ public abstract class DataList<T extends JavaScriptObject> extends Composite {
         if(height != 0) {
             pager.setSize("100%", Math.abs(height) + "px");
         }       
+        
     }
+    
+    
+
     
     /**
      * Creates a {#CellList} used to display the data
      */
     private void createCellList() {
+    	
         cellList = new CellList<T>(cell);
         cellList.setPageSize(PAGE_SIZE);
         cellList.setRowCount(PAGE_SIZE);      
@@ -279,6 +298,10 @@ public abstract class DataList<T extends JavaScriptObject> extends Composite {
                 onRowSelected(selectionModel.getLastSelectedObject());                 
             }
         });
+        
+
+        
+
     }   
     
     /**
@@ -313,19 +336,35 @@ public abstract class DataList<T extends JavaScriptObject> extends Composite {
                 Widget widget = onRender(context, value);
                 if(widget != null) {             
                     sb.appendHtmlConstant(widget.toString());
+                    
+                   
                 }
             }                      
         };
     }
     
     /**
+     * This is a native javascript function to adjust the size of the right column
+     * the function is found in library.js
+     */
+    public static native void resizeColumn() /*-{
+		$wnd.resizeColumn();
+		$wnd.console.log("resizeColumn event called();");
+	}-*/;
+
+    
+    /**
      * Creates the provider which fetches and updates the data
      */
     protected void createDataProvider() {
-        asyncDataProvider = new AsyncDataProvider<T>() {                       
+        asyncDataProvider = new AsyncDataProvider<T>() {    
+        	
+        	
                        
             @Override
-            protected void onRangeChanged(final HasData<T> display) {                                
+            protected void onRangeChanged(final HasData<T> display) {               
+            	
+            	
                 
                 // Get the new range.
                 final Range range = display.getVisibleRange();               
@@ -367,9 +406,12 @@ public abstract class DataList<T extends JavaScriptObject> extends Composite {
                         List<T> newValues = convertToList(result.getElements());
                         values.addAll(newValues);
                         
+                        
                         // Once the request has been made we are allowed
                         // to display the empty list widget if necessary
                         emptyListWidget.setVisible(true);
+                        
+                        
                         
                         updateRowCount(result.getTotalCount(), true);
                         updateRowData(start, values);                           
@@ -380,21 +422,37 @@ public abstract class DataList<T extends JavaScriptObject> extends Composite {
                         // Hide scroll if result is empty
                         if(result.getTotalCount() == 0) {
                             hideScroll();
-                        }
-                    }                    
+                        }   
+                    }
+                    
+
+                    
                 };                
-                onSearchData(page, PAGE_SIZE, callback);                                                         
+                onSearchData(page, PAGE_SIZE, callback);
+                
+               
+
             }
+            
+
+      
         };
+        
         // Handle the cellList
         asyncDataProvider.addDataDisplay(cellList);
+        
+        
+        
+        
     }
+    
+
     
     /**
      * May be override in order to execute custom logic on data loaded and before render it     
      */
     protected void onDataLoaded(ResultPage<T> result) {
-        
+    	
     }
     
     /**
@@ -433,6 +491,7 @@ public abstract class DataList<T extends JavaScriptObject> extends Composite {
      */
     protected abstract void onSearchData(int page, int length, AsyncCallback<ResultPage<T>> callback);
     
+  
     /**
      * Called when a row is selected
      */
@@ -510,7 +569,9 @@ public abstract class DataList<T extends JavaScriptObject> extends Composite {
           @Override
           protected void onRangeOrRowCountChanged() {
               // Does nothing
+        	  
           }
-    }     
+    }
+  
 
 }

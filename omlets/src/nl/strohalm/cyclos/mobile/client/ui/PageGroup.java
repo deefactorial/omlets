@@ -28,5 +28,6 @@ public enum PageGroup {
     CONFIGURATION,
     GENERAL,
     LOGIN,
-    PAYMENTS    
+    PAYMENTS,
+    SETTINGS
 }

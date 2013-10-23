@@ -43,7 +43,7 @@ public class UserRow extends Composite {
         container.setStyleName("row");
         
         rowContent = new FlowPanel();
-        rowContent.setStyleName("row-content");
+        rowContent.setStyleName("user-row-content");
         
         leftContainer = new FlowPanel();
         leftContainer.addStyleName("row-left-column");

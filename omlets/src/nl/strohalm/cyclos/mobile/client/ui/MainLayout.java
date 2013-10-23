@@ -133,6 +133,8 @@ public class MainLayout {
         } 
     }
     
+
+    
     /**
      * Returns the available main screen
      */
@@ -235,20 +237,20 @@ public class MainLayout {
         
         scrollContainer = new FlowPanel();
         scrollContainer.setStyleName("scroll-page");
-        
-        SimplePanel up = new SimplePanel();
-        up.setStyleName("scroll-page-image");
-        up.setWidget(Icon.UP.image());       
-        
-        SimplePanel down = new SimplePanel();
-        down.setStyleName("scroll-page-image");
-        down.setWidget(Icon.DOWN.image());                      
-        
-        scrollContainer.add(up);
-        scrollContainer.add(down);    
-        
-        // Add scrolling events
-        ComponentEventHelper.addScrollEvents(up, down, mainContainer.getElement().getId());
+//        
+//        SimplePanel up = new SimplePanel();
+//        up.setStyleName("scroll-page-image");
+//        up.setWidget(Icon.UP.image());       
+//        
+//        SimplePanel down = new SimplePanel();
+//        down.setStyleName("scroll-page-image");
+//        down.setWidget(Icon.DOWN.image());                      
+//        
+//        scrollContainer.add(up);
+//        scrollContainer.add(down);    
+//        
+//        // Add scrolling events
+//        ComponentEventHelper.addScrollEvents(up, down, mainContainer.getElement().getId());
     }
     
     /**

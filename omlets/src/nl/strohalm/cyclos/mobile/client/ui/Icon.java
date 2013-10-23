@@ -231,6 +231,19 @@ public enum Icon {
         }
     },
   
+    PROFILE_SETTINGS {
+        @Override
+        protected ImageResource imageResource() {
+            switch(ScreenHelper.getScreenDensity()) {
+                case HDPI:
+                    return Resources.INSTANCE.profileSettingsHdpi();
+                case XHDPI:
+                    return Resources.INSTANCE.profileSettingsXhdpi();
+            }
+            return Resources.INSTANCE.profileSettings();
+        }      
+    },
+    
     SETTINGS {
         @Override
         protected ImageResource imageResource() {

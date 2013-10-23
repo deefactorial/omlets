@@ -174,7 +174,7 @@ public class MakePaymentPage extends Page {
         // Display account from and balance
         String html = item.getFrom().getName() + "<br><i>" + 
                       messages.balance() + ": " +
-                      status.getFormattedBalance() + "</i>";
+                      status.getFormattedBalance() + " / " + status.getFormattedTrading() + "</i>";
         
         formData.put(messages.from(), html);
         

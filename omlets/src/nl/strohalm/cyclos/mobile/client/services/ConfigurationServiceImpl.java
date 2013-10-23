@@ -62,8 +62,8 @@ public class ConfigurationServiceImpl implements ConfigurationService {
             // Create possibles URL        
             String httpUrl = ConnectionHelper.appendHTTP(url);
             String httpsUrl = ConnectionHelper.appendHTTPs(url);  
-            String restHttpUrl = httpUrl + "/rest/general";
-            String restHttpsUrl = httpsUrl + "/rest/general";
+            String restHttpUrl = httpUrl + "/rest/general/";
+            String restHttpsUrl = httpsUrl + "/rest/general/";
             String fileHttpUrl = httpUrl + "/cyclosMobileRedirect.txt";
             String fileHttpsUrl = httpsUrl + "/cyclosMobileRedirect.txt";
            

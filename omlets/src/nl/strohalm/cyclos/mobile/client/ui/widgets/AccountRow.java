@@ -21,6 +21,7 @@ package nl.strohalm.cyclos.mobile.client.ui.widgets;
 
 import nl.strohalm.cyclos.mobile.client.utils.StringHelper;
 
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -33,9 +34,14 @@ public class AccountRow extends Composite {
     private FlowPanel container;
     private FlowPanel rowContent;
     private FlowPanel leftContainer;
+    private FlowPanel middleContainer;
     private FlowPanel rightContainer;
+    private FlowPanel fourthContainer;
+    
+
     
     public AccountRow() {
+    	
         container = new FlowPanel();
         initWidget(container);
         container.setStyleName("row");
@@ -46,16 +52,25 @@ public class AccountRow extends Composite {
         leftContainer = new FlowPanel();
         leftContainer.addStyleName("row-left-column");
         
+        middleContainer = new FlowPanel();
+        middleContainer.addStyleName("row-middle-column");
+        
         rightContainer = new FlowPanel();
         rightContainer.addStyleName("row-right-column");
         
+        fourthContainer = new FlowPanel();
+        fourthContainer.addStyleName("row-fourth-column");
+        
+
+        
         rowContent.add(leftContainer);
+        rowContent.add(middleContainer);
         rowContent.add(rightContainer);
+        rowContent.add(fourthContainer);
         
-        container.add(rowContent);        
+        container.add(rowContent);      
         
-        
-    }    
+    }
     
     /**
      * Sets left container style
@@ -65,6 +80,15 @@ public class AccountRow extends Composite {
             leftContainer.addStyleName(style);
         }
     }    
+    
+    /**
+     * Sets middle container style
+     */
+    public void setMiddleStyle(String style) {
+        if(StringHelper.isNotEmpty(style)) {
+            middleContainer.addStyleName(style);
+        }
+    }  
 
     /**
      * Sets right container style
@@ -72,6 +96,15 @@ public class AccountRow extends Composite {
     public void setRightStyle(String style) {
         if(StringHelper.isNotEmpty(style)) {
             rightContainer.addStyleName(style);
+        }
+    }
+    
+    /**
+     * Sets right container style
+     */
+    public void setFourthStyle(String style) {
+        if(StringHelper.isNotEmpty(style)) {
+            fourthContainer.addStyleName(style);
         }
     }
     
@@ -87,6 +120,19 @@ public class AccountRow extends Composite {
      */
     public void setHeading(String heading, String style) {
         Label headingLabel = new Label(heading);
+        headingLabel.addStyleName("row-heading");
+        if(StringHelper.isNotEmpty(style)) {
+            headingLabel.addStyleName(style);
+        }
+        leftContainer.add(headingLabel);
+    }
+    
+    /**
+     * Sets the row heading adding a custom style
+     */
+    public void setHeading(String heading, String style, ClickHandler clickhandler) {
+        Label headingLabel = new Label(heading);
+        headingLabel.addClickHandler(clickhandler);
         headingLabel.addStyleName("row-heading");
         if(StringHelper.isNotEmpty(style)) {
             headingLabel.addStyleName(style);
@@ -139,6 +185,71 @@ public class AccountRow extends Composite {
             valueLabel.addStyleName(style);
         }
         rightContainer.add(valueLabel);
+    }
+    
+    /**
+     * Sets the row value adding a custom style
+     */
+    public void setValue(String value, String style, ClickHandler clickhandler) {
+        Label valueLabel = new Label(value);       
+        valueLabel.addClickHandler(clickhandler);
+        if(StringHelper.isNotEmpty(style)) {
+            valueLabel.addStyleName(style);
+        }
+        rightContainer.add(valueLabel);
+    }
+    
+    /**
+     * Sets the row middle value adding a custom style
+     */
+    
+    public void setMiddleValue(String value, String style) {
+    	Label valueLabel = new Label(value); 
+    	if(StringHelper.isNotEmpty(style)) {
+            valueLabel.addStyleName(style);
+        }
+        middleContainer.add(valueLabel);
+    }
+    
+    /**
+     * Sets the row middle value adding a custom style and clickhandler
+     */
+   
+    public void setMiddleValue(String value, String style, ClickHandler clickhandler) {
+    	Label valueLabel = new Label(value); 
+    	
+    	valueLabel.addClickHandler(clickhandler);
+    	if(StringHelper.isNotEmpty(style)) {
+            valueLabel.addStyleName(style);
+        }
+        middleContainer.add(valueLabel);
+    }
+    
+    
+    /**
+     * Sets the row fourth value adding a custom style
+     */
+    
+    public void setFourthValue(String value, String style) {
+    	Label valueLabel = new Label(value); 
+    	if(StringHelper.isNotEmpty(style)) {
+            valueLabel.addStyleName(style);
+        }
+        fourthContainer.add(valueLabel);
+    }
+    
+    /**
+     * Sets the row fourth value adding a custom style and clickhandler
+     */
+   
+    public void setFourthValue(String value, String style, ClickHandler clickhandler) {
+    	Label valueLabel = new Label(value); 
+    	
+    	valueLabel.addClickHandler(clickhandler);
+    	if(StringHelper.isNotEmpty(style)) {
+            valueLabel.addStyleName(style);
+        }
+        fourthContainer.add(valueLabel);
     }
     
 }

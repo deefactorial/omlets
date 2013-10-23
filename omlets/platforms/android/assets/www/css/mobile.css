@@ -1,22 +1,23 @@
 /*
-    This file is part of Cyclos (www.cyclos.org).
+    This file is part of omlets (www.omlets.org).
     A project of the Social Trade Organisation (www.socialtrade.org).
 
-    Cyclos is free software; you can redistribute it and/or modify
+    omlets is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; either version 2 of the License, or
     (at your option) any later version.
 
-    Cyclos is distributed in the hope that it will be useful,
+    omlets is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with Cyclos; if not, write to the Free Software
+    along with omlets; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
  */
+
 body {
 	font-family: arial,helvetica, sans-serif,"lucida grande",tahoma,verdana;
 	font-size: 14px;
@@ -57,7 +58,9 @@ ul {
 .datePickerNextButton,
 .dateBoxSelect,
 .scroll-data-image,
-.scroll-page-image {
+.scroll-page-image,
+.row-middle-header,
+.row-left-header {
 	cursor: pointer;
 	cursor: hand;
 }
@@ -65,7 +68,9 @@ ul {
 .form-input-field,
 .popup,
 .row-left-column,
-.row-right-column {
+.row-right-column,
+.row-middle-column,
+.row-fourth-column {
 	padding: 5px;
 }
 .action-button,
@@ -157,6 +162,7 @@ ul {
 .prompt-text,
 .row,
 .row-content,
+.user-row-content,
 .no-data,
 .notification,
 .loading-data,
@@ -164,7 +170,8 @@ ul {
 .datePickerDays,
 .datePickerMonthSelector,
 .version-label-field,
-.action-button-click-surface {
+.action-button-click-surface,
+.second-row {
 	width: 100%;
 }
 .number-field,
@@ -174,6 +181,10 @@ ul {
 .no-data,
 .notification,
 .radio-group {
+	display: table;
+	table-layout: fixed;
+}
+.user-row-content {
 	display: table;
 }
 .number-field,
@@ -201,8 +212,25 @@ ul {
 .icon-container,
 .radio-group-button,
 .row-left-column,
-.row-right-column {
+.row-right-column,
+.row-middle-column,
+.row-fourth-column {
 	display: table-cell;  
+}
+.row-left-column {
+}
+.row-right-column,
+.userspace-selector-label,
+.row-left-header,
+.row-middle-header {
+	white-space: nowrap;
+}
+.innerParagraph,
+.innerMiddleParagraph,
+.innerFourthParagraph {
+	text-align: right;	
+	display: inline-block;
+	margin: 0;
 }
 .Caption, 
 .prompt-text {
@@ -212,7 +240,6 @@ ul {
 .menu, 
 .help, 
 .icon-button,
-.row-heading,
 .version-label-field {	
 	font-size: 11px;	
 }
@@ -230,8 +257,14 @@ ul {
 .form-value,
 .action-button,
 .users,
-.Caption {
+.Caption,
+.settings-menu {
 	font-size: 12px;
+}
+.row-middle-column,
+.row-fourth-header,
+.row-right-header {
+	font-size: 0.9em;
 }
 .configuration-label-field, 
 .payment-label-field,
@@ -242,14 +275,20 @@ ul {
 .topmenu-heading, 
 .action-button,
 .row-heading,
+.row-middle-header,
+.row-middle-column,
 .row-right-column,
+.row-right-header,
+.row-fourth-header,
+.row-fourth-column,
 .form-label,
 .custom-field-label,
 .number-field-decimal-separator {		    
     font-weight: bold;
 }
 .custom-checkbox,
-.custom-radio {
+.custom-radio,
+.account-information-heading{
   	display: inline-block;
 }
 .custom-checkbox > .box {
@@ -338,7 +377,8 @@ ul {
 }
 .dateBox-input-field,
 .form-input-field,
-.form-select-field select {
+.form-select-field select,
+.userspace-selector-label {
 	font-family: arial,helvetica,sans-serif,"lucida grande",tahoma,verdana;
 }
 .dateBox-input-field,
@@ -352,7 +392,7 @@ ul {
     -webkit-box-sizing: border-box;
 }
 .form-input-field:-moz-placeholder,
-.dateBox-input-field:-moz-placeholder {
+.dateBox-input-field:-moz-placeholder{
 	color: #AAAAAA;
     font-style: italic;
     text-align: left !important;
@@ -364,7 +404,8 @@ ul {
     text-align: left !important;
 }
 .form-input-field-readonly, 
-.example {
+.example,
+.userspace-selector-label {
 	font-style: italic;
 }
 .form-select-field {
@@ -382,7 +423,8 @@ ul {
 .row {
 	min-height: 38px;
 }
-.row-content {
+.row-content,
+.user-row-content{
 	height: 38px;
 }
 .help {
@@ -437,13 +479,17 @@ ul {
 .Caption,
 .custom-radio > .value,
 .row-heading,
+.row-middle-column,
+.row-right-header,
+.row-fourth-header,
 .no-data,
 .users,
 .icon-button,
 .form-value,
 .transaction-password-label-field,
 .prompt-text,
-.loading-text {
+.loading-text,
+.userspace-selector-label {
 	color: #3C4B50;
 }
 .login-label {
@@ -499,8 +545,9 @@ ul {
 	float: left;
 }
 .image-row-left-column {
+	margin: 0 0 0 5px;
 	padding: 0 0 0 5px;
-    width: 20px;
+    width: 25px;
 }
 .loading-process {	
     margin: 0 auto 10px;    
@@ -604,9 +651,16 @@ ul {
 }
 .number-field-decimal-wrapper input,
 .number-field-number-wrapper input,
+.row-middle-column,
+.version-label-field,
 .row-right-column,
-.version-label-field {
+.row-fourth-column,
+.settings-menu {
 	text-align: right;		
+}
+.settings-menu {
+	line-height: 3em;
+	height:100%;
 }
 .number-field-decimal-wrapper input:-moz-placeholder {
 	color: #3C4B50 !important;
@@ -682,6 +736,12 @@ ul {
 	font-size: 10px;
 	font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
 	color: #8F908A;
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.row-fourth-column {
+	color: #8F908A;
 }
 .version-container {
 	margin-right: 4px;
@@ -704,6 +764,7 @@ ul {
 	color: #3C4B50;
 }
 .account-information-value {
+	text-align:right;
 	color: #444;
 }
 .top-spacing,
@@ -769,10 +830,16 @@ ul {
 .bottom-bar-button,
 .row-left-column,
 .row-right-column,
+.row-fourth-column,
+.row-middle-header,
 .spinner,
-.custom-radio > .value {
+.custom-radio > .value,
+.second-row,
+.first-row,
+.row-middle-column {
 	vertical-align: middle;
 }
+
 .topmenu-heading {
 	color: #FFFFFF;
     text-shadow: 1px 1px 1px #516AA4;

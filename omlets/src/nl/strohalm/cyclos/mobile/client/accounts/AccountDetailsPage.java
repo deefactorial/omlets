@@ -40,6 +40,7 @@ import nl.strohalm.cyclos.mobile.client.utils.StringHelper;
 import com.google.gwt.cell.client.Cell.Context;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsArray;
+import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -93,7 +94,10 @@ public class AccountDetailsPage extends Page {
       
         accountInformation = new AccountRow();          
         accountInformation.addStyleName("account-information-row");
+        accountInformation.setLeftStyle("account-information-row-left-column");
         accountInformation.setRightStyle("account-information-row-right-column");
+        accountInformation.setMiddleStyle("account-information-row-middle-column");
+        accountInformation.setFourthStyle("account-information-row-fourth-column");
         accountInformation.setHeading(accountName, "account-information-heading");
         
         // Fetch account status data
@@ -102,7 +106,8 @@ public class AccountDetailsPage extends Page {
             public void onSuccess(AccountStatus status) {
                 //accountInformation.setSub(messages.lowerCreditLimit(status.getFormattedCreditLimit()), "account-information-sub");
                 //accountInformation.setSub(messages.availableBalance(status.getFormattedAvailableBalance()), "account-information-sub");
-                accountInformation.setValue(status.getFormattedBalance(), "account-information-value");
+            	accountInformation.setMiddleValue(status.getCurrency(),"");
+                accountInformation.setValue(status.getFormattedBalance() + " / " + status.getFormattedTrading(), "account-information-value");
             }                
         });                           
     }
@@ -120,6 +125,8 @@ public class AccountDetailsPage extends Page {
         }
         return "";
     }
+    
+
     
     /**
      * Creates data list which fetches and render transfers
@@ -142,9 +149,9 @@ public class AccountDetailsPage extends Page {
                 AccountRow row = new AccountRow();
                 row.setHeading(name);
                 String description = data.getDescription();
-                if(description.length() > 30){
-                	description = description.substring(0, 30) + "...";
-                }
+                //if(description.length() > 30){
+                	//description = description.substring(0, 30) + "...";
+                //}
                 
                 row.setSub(data.getFormattedProcessDate() + " - " + description);
                 
@@ -157,6 +164,8 @@ public class AccountDetailsPage extends Page {
                 
                 return row;
             }
+            
+
 
             @Override
             protected void onSearchData(int page, int length, AsyncCallback<ResultPage<Transfer>> callback) {
@@ -177,9 +186,15 @@ public class AccountDetailsPage extends Page {
             protected Widget addHeader() {                
                 return accountInformation;
             }
+            
+            
+            
         };
+       
         container.add(dataList);
     }      
+    
+
     
     /**
      * Navigates to transfer details sending according parameters     

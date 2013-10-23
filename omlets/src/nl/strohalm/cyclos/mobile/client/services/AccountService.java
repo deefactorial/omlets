@@ -41,7 +41,7 @@ public interface AccountService {
     /**
      * Get all accounts with their status
      */
-    void getAccountsData(AsyncCallback<JsArray<AccountData>> callback);
+    void getAccountsData(Parameters parameters, AsyncCallback<ResultPage<AccountData>> callback);
     
     /**
      * Get an account status by id

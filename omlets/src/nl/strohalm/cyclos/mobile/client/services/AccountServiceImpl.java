@@ -42,8 +42,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void getAccountsData(AsyncCallback<JsArray<AccountData>> callback) {
-        RestRequest<JsArray<AccountData>> request = new RestRequest<JsArray<AccountData>>(RequestBuilder.GET, "accounts/info");        
+    public void getAccountsData(Parameters parameters, AsyncCallback<ResultPage<AccountData>> callback) {
+        RestRequest<ResultPage<AccountData>> request = new RestRequest<ResultPage<AccountData>>(RequestBuilder.GET, "accounts/info", parameters);        
         request.sendAuthenticated(callback);
     }
 

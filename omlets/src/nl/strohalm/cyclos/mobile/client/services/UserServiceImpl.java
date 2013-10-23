@@ -46,3 +46,4 @@ public class UserServiceImpl implements UserService {
     }
 
 }
+//10-15 23:46:13.577: I/Web Console(16885): RestRequest:GET,url:http://openmoney.proudleo.com/rest/payments/paymentData?destination=MEMBER&toMemberId=593 at file:///android_asset/www/js/library.js:434

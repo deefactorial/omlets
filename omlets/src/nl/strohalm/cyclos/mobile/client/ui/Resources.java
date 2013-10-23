@@ -180,6 +180,16 @@ public interface Resources extends ClientBundle {
     @Source("icons/system.png")
     ImageResource system();
     
+    @Source("icons/profile_settings.png")
+    ImageResource profileSettings();
+    
+    @Source("icons/hdpi/profile_settings.png")
+    ImageResource profileSettingsHdpi();
+    
+    @Source("icons/xhdpi/profile_settings.png")
+    ImageResource profileSettingsXhdpi();
+   
+    
     @Source("icons/hdpi/system.png")
     ImageResource systemHdpi();
     

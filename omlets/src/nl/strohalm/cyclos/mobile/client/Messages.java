@@ -257,6 +257,10 @@ public interface Messages extends com.google.gwt.i18n.client.Messages {
     
     String sessionExpired();
     
+    String settings();
+    
+    String settingsHeader();
+    
     String supplyTransactionPassword();
     
     String toMyContact();

@@ -39,6 +39,7 @@ public class MenuPanel extends Composite {
     
     private MenuButton accounts;
     private MenuButton payments;
+    private MenuButton settings;
    // private MenuButton contacts;
     
     public MenuPanel() {
@@ -56,11 +57,15 @@ public class MenuPanel extends Composite {
         payments = new MenuButton(messages.payments(), Icon.PAYMENTS.image());
         payments.addClickHandler(getButtonClickHandler(PageAnchor.PAYMENTS));
         
+        settings = new MenuButton(messages.settings(), Icon.PROFILE_SETTINGS.image());
+        settings.addClickHandler(getButtonClickHandler(PageAnchor.SETTINGS));
+        
         //contacts = new MenuButton(messages.contacts(), Icon.CONTACTS.image());
         //contacts.addClickHandler(getButtonClickHandler(PageAnchor.CONTACTS));
         
         container.add(accounts);
         container.add(payments);
+        container.add(settings);
         //container.add(contacts);        
         
         
@@ -94,9 +99,9 @@ public class MenuPanel extends Composite {
                 case PAYMENTS:              
                     payments.setDown(true);
                     break;
-//                case CONTACTS:
-//                    contacts.setDown(true);
-//                    break;          
+                case SETTINGS:
+                    settings.setDown(true);
+                    break;          
             }
         }
     }
@@ -107,7 +112,7 @@ public class MenuPanel extends Composite {
     private void resetButtons() {    
         accounts.setDown(false);
         payments.setDown(false);
-//        contacts.setDown(false);
+        settings.setDown(false);
     }
     
 }

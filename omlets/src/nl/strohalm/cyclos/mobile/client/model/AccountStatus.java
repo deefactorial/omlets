@@ -35,6 +35,14 @@ public class AccountStatus extends Entity {
         return $wnd.cleanString(this.formattedBalance);
     }-*/;
     
+    public final native Double getTrading() /*-{
+    	return @java.lang.Double::valueOf(Ljava/lang/String;)($wnd.cleanString(this.trading));
+	}-*/;
+
+    public final native String getFormattedTrading() /*-{
+    	return $wnd.cleanString(this.formattedTrading);
+	}-*/;
+    
     public final native Double getReservedAmount() /*-{
         return @java.lang.Double::valueOf(Ljava/lang/String;)($wnd.cleanString(this.reservedAmount));
     }-*/;
@@ -66,5 +74,9 @@ public class AccountStatus extends Entity {
     public final native String getFormattedUpperCreditLimit() /*-{
         return $wnd.cleanString(this.formattedUpperCreditLimit);
     }-*/;    
+    
+    public final native String getCurrency() /*-{
+    	return $wnd.cleanString(this.currency);
+	}-*/;  
     
 }

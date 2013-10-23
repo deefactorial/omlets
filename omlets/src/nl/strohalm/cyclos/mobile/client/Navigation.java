@@ -21,9 +21,7 @@ package nl.strohalm.cyclos.mobile.client;
 import nl.strohalm.cyclos.mobile.client.accounts.AccountDetailsPage;
 import nl.strohalm.cyclos.mobile.client.accounts.AccountsPage;
 import nl.strohalm.cyclos.mobile.client.configuration.ConfigurationPage;
-import nl.strohalm.cyclos.mobile.client.contacts.ContactDetailsPage;
 import nl.strohalm.cyclos.mobile.client.contacts.ContactSelectPage;
-import nl.strohalm.cyclos.mobile.client.contacts.ContactsPage;
 import nl.strohalm.cyclos.mobile.client.help.HelpPage;
 import nl.strohalm.cyclos.mobile.client.loadgeneraldata.LoadGeneralDataPage;
 import nl.strohalm.cyclos.mobile.client.login.LoginPage;
@@ -33,13 +31,13 @@ import nl.strohalm.cyclos.mobile.client.payments.MakePaymentPage;
 import nl.strohalm.cyclos.mobile.client.payments.PaymentDetailsPage;
 import nl.strohalm.cyclos.mobile.client.payments.PaymentPreviewPage;
 import nl.strohalm.cyclos.mobile.client.payments.PaymentsPage;
+import nl.strohalm.cyclos.mobile.client.settings.SettingsCreateCurrency;
+import nl.strohalm.cyclos.mobile.client.settings.SettingsJoinCurrency;
+import nl.strohalm.cyclos.mobile.client.settings.SettingsPage;
 import nl.strohalm.cyclos.mobile.client.ui.Page;
 import nl.strohalm.cyclos.mobile.client.ui.PageAnchor;
 import nl.strohalm.cyclos.mobile.client.ui.widgets.LogoutDialog;
-import nl.strohalm.cyclos.mobile.client.users.UserDetailsPage;
-import nl.strohalm.cyclos.mobile.client.users.UserSearchPage;
 import nl.strohalm.cyclos.mobile.client.users.UserSelectPage;
-import nl.strohalm.cyclos.mobile.client.users.UsersPage;
 import nl.strohalm.cyclos.mobile.client.utils.StringHelper;
 
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -269,6 +267,15 @@ public class Navigation {
             case CONFIGURATION:
                 page = new ConfigurationPage();
                 break;
+            case SETTINGS:
+            	page = new SettingsPage();
+            	break;
+            case SETTINGS_JOIN_CURRENCY:
+            	page = new SettingsJoinCurrency();
+            	break;
+            case SETTINGS_CREATE_CURRENCY:
+            	page = new SettingsCreateCurrency();
+            	break;
 //            case CONTACTS:
 //                page = new ContactsPage();
 //                break;
