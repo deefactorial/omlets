@@ -117,6 +117,7 @@ public class AccountsPage extends Page {
                 // Create row widget
                 AccountRow row = new AccountRow();
                 row.setHeading(data.getAccount().getType().getName());
+                row.setLeftStyle("account-left");
                 row.setMiddleValue(data.getStatus().getCurrency(), "");
                 //row.setSub(LoggedUser.get().getInitialData().getProfile().getName());
                 row.setValue(data.getStatus().getFormattedBalance(), data.getStatus().getBalance() > 0d);

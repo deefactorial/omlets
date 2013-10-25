@@ -28,7 +28,7 @@
  * version: "1.0.0"
  */
 var options = {
-		version: "1.1.1",
+		version: "1.1.2",
 		sessionTimeout: 1800,
 		splashScreen: false
 		

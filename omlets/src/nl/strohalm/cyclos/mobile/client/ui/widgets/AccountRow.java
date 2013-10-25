@@ -81,6 +81,14 @@ public class AccountRow extends Composite {
         }
     }    
     
+    
+    /**
+     * Sets left container visibility
+     */
+    public void setLeftVisibility(boolean isDisplayed) {       
+         leftContainer.setVisible(isDisplayed);
+    }    
+    
     /**
      * Sets middle container style
      */
@@ -89,6 +97,13 @@ public class AccountRow extends Composite {
             middleContainer.addStyleName(style);
         }
     }  
+    
+    /**
+     * Sets middle container visibility
+     */
+    public void setMiddleVisibility(boolean isDisplayed) {       
+         middleContainer.setVisible(isDisplayed);
+    }    
 
     /**
      * Sets right container style
@@ -100,13 +115,27 @@ public class AccountRow extends Composite {
     }
     
     /**
-     * Sets right container style
+     * Sets right container visibility
+     */
+    public void setRightVisibility(boolean isDisplayed) {       
+         rightContainer.setVisible(isDisplayed);
+    }   
+    
+    /**
+     * Sets Fourth container style
      */
     public void setFourthStyle(String style) {
         if(StringHelper.isNotEmpty(style)) {
             fourthContainer.addStyleName(style);
         }
     }
+    
+    /**
+     * Sets fourth container visibility
+     */
+    public void setFourthVisibility(boolean isDisplayed) {       
+         fourthContainer.setVisible(isDisplayed);
+    }   
     
     /**
      * Sets the row heading

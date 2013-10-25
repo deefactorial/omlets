@@ -98,6 +98,7 @@ public class AccountDetailsPage extends Page {
         accountInformation.setRightStyle("account-information-row-right-column");
         accountInformation.setMiddleStyle("account-information-row-middle-column");
         accountInformation.setFourthStyle("account-information-row-fourth-column");
+        accountInformation.setFourthVisibility(false);
         accountInformation.setHeading(accountName, "account-information-heading");
         
         // Fetch account status data
@@ -148,12 +149,15 @@ public class AccountDetailsPage extends Page {
                 // Create row widget
                 AccountRow row = new AccountRow();
                 row.setHeading(name);
+                row.setMiddleVisibility(false);
+                row.setFourthVisibility(false);
                 String description = data.getDescription();
                 //if(description.length() > 30){
                 	//description = description.substring(0, 30) + "...";
                 //}
                 
                 row.setSub(data.getFormattedProcessDate() + " - " + description);
+                
                 
                 boolean positiveAmount = data.getAmount() > 0d;
                 
