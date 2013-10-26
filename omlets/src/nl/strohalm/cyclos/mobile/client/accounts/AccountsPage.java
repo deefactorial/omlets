@@ -114,6 +114,18 @@ public class AccountsPage extends Page {
                   return null;
                 }
                 
+                boolean exists = false;
+                for(int i = 0; i < accounts.length() ; i++) {
+                	if(accounts.get(i).equals(data.getAccount())){
+                		exists = true;
+                	}
+                }
+                
+                if (!exists) {
+                	accounts.push(data.getAccount());
+                	LoggedUser.get().getInitialData().setAccounts(accounts);
+                }
+                
                 // Create row widget
                 AccountRow row = new AccountRow();
                 row.setHeading(data.getAccount().getType().getName());
@@ -188,7 +200,8 @@ public class AccountsPage extends Page {
 						consoleLog("left onclick handler " + orderBy + " " + orderDirection + ", " + secondaryOrderBy + " " + secondaryOrderDirection);
 					}
 				};
-            	row.setHeading("Trading Name ▲","row-left-header", leftClickHandler);
+            	row.setHeading("Trading Name ▲","", leftClickHandler);
+            	row.setLeftStyle("account-left");
             	ClickHandler middleClickHandler = new ClickHandler() {
 					
 					@Override

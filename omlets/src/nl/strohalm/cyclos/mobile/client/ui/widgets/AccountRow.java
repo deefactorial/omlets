@@ -229,6 +229,18 @@ public class AccountRow extends Composite {
     }
     
     /**
+     * Sets the row sub-value adding a custom style    
+     */
+    public void setSubValue(String description, String style) {
+        Label descriptionLabel = new Label(description);
+        descriptionLabel.addStyleName("row-sub");
+        if(StringHelper.isNotEmpty(style)) {
+            descriptionLabel.addStyleName(style);
+        }
+        rightContainer.add(descriptionLabel);
+    }
+    
+    /**
      * Sets the row middle value adding a custom style
      */
     

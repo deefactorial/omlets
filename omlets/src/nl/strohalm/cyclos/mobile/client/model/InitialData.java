@@ -34,6 +34,10 @@ public class InitialData extends JavaScriptObject {
     public final native JsArray<Account> getAccounts() /*-{
         return $wnd.cleanObject(this.accounts);
     }-*/;
+    
+    public final native void setAccounts(JsArray<Account> accounts) /*-{
+    	this.accounts = accounts;
+	}-*/;
 
     public final native MyProfile getProfile() /*-{
         return $wnd.cleanObject(this.profile);

@@ -107,8 +107,10 @@ public class AccountDetailsPage extends Page {
             public void onSuccess(AccountStatus status) {
                 //accountInformation.setSub(messages.lowerCreditLimit(status.getFormattedCreditLimit()), "account-information-sub");
                 //accountInformation.setSub(messages.availableBalance(status.getFormattedAvailableBalance()), "account-information-sub");
+            	
             	accountInformation.setMiddleValue(status.getCurrency(),"");
-                accountInformation.setValue(status.getFormattedBalance() + " / " + status.getFormattedTrading(), "account-information-value");
+                accountInformation.setValue(status.getFormattedBalance(), "account-information-value");
+                accountInformation.setSubValue(status.getFormattedTrading(), "account-information-sub-value");
             }                
         });                           
     }

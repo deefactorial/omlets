@@ -48,8 +48,12 @@ import nl.strohalm.cyclos.mobile.client.utils.PageAction;
 import nl.strohalm.cyclos.mobile.client.utils.ParameterKey;
 import nl.strohalm.cyclos.mobile.client.utils.StringHelper;
 
+import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.json.client.JSONArray;
+import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -60,6 +64,7 @@ public class MakePaymentPage extends Page {
     private PaymentService paymentService = GWT.create(PaymentService.class);
     
     private InitialData data; 
+    private FormField fieldwidgets;
     private FormField fields;
     private CustomFieldForm customFields;
     private SquarePanel container;
@@ -68,6 +73,7 @@ public class MakePaymentPage extends Page {
     private TextAreaField description;
     private SelectionField<TransferTypeDetailed> transferTypes;
     private boolean isSystem;
+    private FlowPanel combined;
             
     @Override
     public String getHeading() {
@@ -82,7 +88,8 @@ public class MakePaymentPage extends Page {
         
         data = LoggedUser.get().getInitialData();
         
-        fields = new FormField();               
+        fields = new FormField();       
+        fieldwidgets = new FormField();
 
         transferTypes = new SelectionField<TransferTypeDetailed>() {
             @Override
@@ -102,8 +109,9 @@ public class MakePaymentPage extends Page {
         
         customFields = new CustomFieldForm();
         
+        container.add(fieldwidgets);
         container.add(fields);
-        container.add(transferTypes);
+        //container.add(transferTypes);
         container.add(amount);
         container.add(description);   
         container.add(customFields);
@@ -168,15 +176,35 @@ public class MakePaymentPage extends Page {
      */
     private void renderData(TransferTypeDetailed item) {
         Map<String, String> formData = new LinkedHashMap<String, String>();
+        Map<String, Widget> formWidgets = new LinkedHashMap<String, Widget>();
               
         AccountStatus status = paymentData.get(item.getFrom().getId());
         
-        // Display account from and balance
-        String html = item.getFrom().getName() + "<br><i>" + 
-                      messages.balance() + ": " +
-                      status.getFormattedBalance() + " / " + status.getFormattedTrading() + "</i>";
+        String html = "";
+        if (transferTypes.isVisible()) {
+
+        	combined = new FlowPanel();
+        	String label = messages.balance() + ": " +
+                  status.getFormattedBalance() + " / " + status.getFormattedTrading() ;
+        	Label transferTypesLabel = new Label(label);
+        	transferTypesLabel.setStyleName("italics");
+        	combined.add(transferTypes);
+        	combined.add(transferTypesLabel);
+			
+			formWidgets.put(messages.from(), combined);
+			fieldwidgets.addStyleName("make-payment-from");
+			fieldwidgets.setWidgets(formWidgets);
+        } else {
+            // Display account from and balance
+            html = item.getFrom().getName() + "<br><i>" + 
+                          messages.balance() + ": " +
+                          status.getFormattedBalance() + " / " + status.getFormattedTrading() + "</i>";
+            formData.put(messages.from(), html);
+        }
         
-        formData.put(messages.from(), html);
+
+        
+        
         
         // If it is system show account name, otherwise display member name
         if(isSystem) {
@@ -185,7 +213,9 @@ public class MakePaymentPage extends Page {
             formData.put(messages.to(), paymentData.getMemberTo().getName());
         }  
         
+        
         fields.setData(formData);
+        
         
         // Update amount place holder with currency name
         amount.setPlaceHolder(messages.amountIn(item.getTo().getCurrency().getName()));
@@ -193,6 +223,7 @@ public class MakePaymentPage extends Page {
         // Add custom fields
         customFields.setCustomFields(item.getCustomFields());     
     }
+    
 
     /**
      * Returns make payment's action

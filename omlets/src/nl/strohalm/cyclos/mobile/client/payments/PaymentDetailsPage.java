@@ -180,8 +180,8 @@ public class PaymentDetailsPage extends Page {
         formData.put(messages.from(), from);
         formData.put(messages.to(), to);
         //formData.put(messages.type(), transfer.getTransferType().getName());
-        NumberFormat numberFormat = NumberFormat.getFormat("###,###,###.00");
-        formData.put(messages.amount(),  numberFormat.format(Double.parseDouble(transfer.getFormattedAmount())));
+        NumberFormat numberFormat = NumberFormat.getFormat("###,###,###.00;-###,###,###.00");
+        formData.put(messages.amount(),  numberFormat.format(Double.parseDouble(transfer.getAmount().toString())));
         formData.put("Currency", transfer.getTransferType().getFrom().getCurrency().getName());
         formData.put(messages.description(), transfer.getDescription()); 
         
