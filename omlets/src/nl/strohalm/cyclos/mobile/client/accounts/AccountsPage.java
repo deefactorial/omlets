@@ -131,9 +131,11 @@ public class AccountsPage extends Page {
                 row.setHeading(data.getAccount().getType().getName());
                 row.setLeftStyle("account-left");
                 row.setMiddleValue(data.getStatus().getCurrency(), "");
-                //row.setSub(LoggedUser.get().getInitialData().getProfile().getName());
-                row.setValue(data.getStatus().getFormattedBalance(), data.getStatus().getBalance() > 0d);
-                row.setFourthValue(data.getStatus().getFormattedTrading().toString(),"");
+                row.setFreeSpaceValue();
+                row.setValue(data.getStatus().getFormattedTrading().toString(),"");
+                //row.setFourthValue(data.getStatus().getFormattedBalance(), data.getStatus().getBalance() > 0d);
+                row.setSubValue(data.getStatus().getFormattedBalance(), data.getStatus().getBalance() > 0d);
+                row.setFourthVisibility(false);
                 
                 return row;
             }
@@ -165,11 +167,14 @@ public class AccountsPage extends Page {
 
             	// TODO: add static strings to messages properties
             	
-            	AccountRow row = new AccountRow();
+            	final AccountRow row = new AccountRow();
+            	
+            	//Trading name click handler
             	ClickHandler leftClickHandler = new ClickHandler() {
 					
 					@Override
 					public void onClick(ClickEvent event) {
+						
 						
 						if(orderBy.equals("trading_name")){
 							//orderBy is already trading name so just change direction of order
@@ -180,6 +185,7 @@ public class AccountsPage extends Page {
 								orderDirection = "ASC";
 								event.getRelativeElement().setInnerText("Trading Name ▲");
 							}
+							
 						} else {
 							//orderBy was just currency so swap orderBy with secondary
 							String tempOrderDirection = secondaryOrderDirection;
@@ -193,6 +199,8 @@ public class AccountsPage extends Page {
 								orderDirection = "ASC";
 								event.getRelativeElement().setInnerText("Trading Name ▲");
 							}
+							row.removeMiddleStyle("underline");
+							row.addHeadingStyle("underline");
 						}
 						
 						values.clear();
@@ -202,6 +210,8 @@ public class AccountsPage extends Page {
 				};
             	row.setHeading("Trading Name ▲","", leftClickHandler);
             	row.setLeftStyle("account-left");
+            	
+            	//Currency click handler
             	ClickHandler middleClickHandler = new ClickHandler() {
 					
 					@Override
@@ -230,6 +240,8 @@ public class AccountsPage extends Page {
 								orderDirection = "ASC";
 								event.getRelativeElement().setInnerText("Currency ▲");
 							}
+							row.removeHeadingStyle("underline");
+							row.addMiddleStyle("underline");
 						}
 						
 						orderBy = "currency";
@@ -239,8 +251,13 @@ public class AccountsPage extends Page {
 					}
 				};
             	row.setMiddleValue("Currency ▲", "row-middle-header",middleClickHandler);
-            	row.setValue("Balance", "row-right-header");
-            	row.setFourthValue("Volume", "row-fourth-header");
+            	row.addMiddleStyle("underline");
+            	row.setFreeSpaceValue();
+            	row.setValue("Volume", "row-right-header");
+            	row.setSubValue("Balance", "row-fourth-header");
+            	
+            	//row.setFourthValue("Balance", "row-fourth-header");
+            	row.setFourthVisibility(false);
             	
             	row.addAttachHandler(new AttachEvent.Handler() {
 					

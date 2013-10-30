@@ -48,10 +48,9 @@ import nl.strohalm.cyclos.mobile.client.utils.PageAction;
 import nl.strohalm.cyclos.mobile.client.utils.ParameterKey;
 import nl.strohalm.cyclos.mobile.client.utils.StringHelper;
 
-import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.json.client.JSONArray;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
@@ -176,30 +175,44 @@ public class MakePaymentPage extends Page {
      */
     private void renderData(TransferTypeDetailed item) {
         Map<String, String> formData = new LinkedHashMap<String, String>();
-        Map<String, Widget> formWidgets = new LinkedHashMap<String, Widget>();
+        
               
         AccountStatus status = paymentData.get(item.getFrom().getId());
         
         String html = "";
-        if (transferTypes.isVisible()) {
-
+        if (paymentData.getTransferTypes().length() == 1) {
+            // Display account from and balance
+        	
+            html = "<table><tr><td>Trading Name:</td><td>" + item.getFrom().getName() + "</td></tr>"+
+            		       "<tr><td><i>Total Volume:</i></td><td><i>" + status.getFormattedTrading() + "</i></td></tr>" +
+            		       "<tr><td><i>" + messages.balance() + ":</i></td><td><i>" + status.getFormattedBalance() + "</i></td></tr>"+
+            		       "<tr><td><i>Currency:</i></td><td><i>"+status.getCurrency()+"</i></td></tr></table>";
+            formData.put(messages.from(), html);
+        } else {
+        	// display dropdown;
+        	Map<String, Widget> formWidgets = new LinkedHashMap<String, Widget>();
         	combined = new FlowPanel();
-        	String label = messages.balance() + ": " +
-                  status.getFormattedBalance() + " / " + status.getFormattedTrading() ;
-        	Label transferTypesLabel = new Label(label);
-        	transferTypesLabel.setStyleName("italics");
+        	FlexTable tableLabel = new FlexTable();
+        	tableLabel.setStyleName("italics");
+        	tableLabel.setText(0, 0, "Total Volume:");
+        	tableLabel.setText(0, 1, status.getFormattedTrading());
+        	tableLabel.setText(1, 0, messages.balance() + ":");
+        	tableLabel.setText(1, 1, status.getFormattedBalance() );
+        	tableLabel.setText(2, 0, "Currency:");
+        	tableLabel.setText(2, 1, status.getCurrency());
+//        	String label = 
+//        			"Total Volume:" + status.getFormattedTrading() + "<br />" +
+//        			messages.balance() + ": " +
+//                  status.getFormattedBalance() + "<br />" +
+//        			"Currency:" + status.getCurrency();
+//        	Label transferTypesLabel = new Label(label);
+//        	transferTypesLabel.setStyleName("italics");
         	combined.add(transferTypes);
-        	combined.add(transferTypesLabel);
-			
+        	//combined.add(transferTypesLabel);
+        	combined.add(tableLabel);
 			formWidgets.put(messages.from(), combined);
 			fieldwidgets.addStyleName("make-payment-from");
 			fieldwidgets.setWidgets(formWidgets);
-        } else {
-            // Display account from and balance
-            html = item.getFrom().getName() + "<br><i>" + 
-                          messages.balance() + ": " +
-                          status.getFormattedBalance() + " / " + status.getFormattedTrading() + "</i>";
-            formData.put(messages.from(), html);
         }
         
 

@@ -21,6 +21,7 @@ package nl.strohalm.cyclos.mobile.client.ui.widgets;
 
 import nl.strohalm.cyclos.mobile.client.utils.UIHelper;
 
+import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TextBox;
@@ -103,5 +104,10 @@ public class TextField extends Composite {
     public void setValue(String value) {
        textBox.setValue(value);
     }
+    
+    public void addKeyDownHander(KeyDownHandler keyDownHandler){
+    	textBox.addKeyDownHandler(keyDownHandler);
+    }
+
     
 }

@@ -162,10 +162,6 @@ public abstract class DataList<T extends JavaScriptObject> extends Composite {
             }
         });
         
-
-        
-        
-        
         
         // Initialize widget
         mainContainer.add(pager);
@@ -537,7 +533,7 @@ public abstract class DataList<T extends JavaScriptObject> extends Composite {
                             // We are near the end, so increase the page size
                             int newPageSize = Math.min(display.getVisibleRange().getLength() + incrementSize, display.getRowCount());
                             
-                            if(lastPageSize != newPageSize) {
+                            if(lastPageSize < newPageSize) {
                                 lastPageSize = newPageSize;
                                 // Meanwhile display loading message
                                 displayLoading();

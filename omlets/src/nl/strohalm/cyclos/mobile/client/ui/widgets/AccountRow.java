@@ -34,11 +34,18 @@ public class AccountRow extends Composite {
     private FlowPanel container;
     private FlowPanel rowContent;
     private FlowPanel leftContainer;
+
     private FlowPanel middleContainer;
+    
+    private FlowPanel freeSpaceContainer;
+    
     private FlowPanel rightContainer;
     private FlowPanel fourthContainer;
     
-
+    private Label leftLabel;
+    private Label middleLabel;
+    //private Label rightLabel;
+    //private Label fourthLabel;
     
     public AccountRow() {
     	
@@ -52,8 +59,12 @@ public class AccountRow extends Composite {
         leftContainer = new FlowPanel();
         leftContainer.addStyleName("row-left-column");
         
+        
         middleContainer = new FlowPanel();
         middleContainer.addStyleName("row-middle-column");
+        
+        freeSpaceContainer = new FlowPanel();
+        freeSpaceContainer.addStyleName("row-freespace-column");
         
         rightContainer = new FlowPanel();
         rightContainer.addStyleName("row-right-column");
@@ -65,6 +76,7 @@ public class AccountRow extends Composite {
         
         rowContent.add(leftContainer);
         rowContent.add(middleContainer);
+        rowContent.add(freeSpaceContainer);
         rowContent.add(rightContainer);
         rowContent.add(fourthContainer);
         
@@ -148,25 +160,33 @@ public class AccountRow extends Composite {
      * Sets the row heading adding a custom style
      */
     public void setHeading(String heading, String style) {
-        Label headingLabel = new Label(heading);
-        headingLabel.addStyleName("row-heading");
+        leftLabel = new Label(heading);
+        leftLabel.addStyleName("row-heading");
         if(StringHelper.isNotEmpty(style)) {
-            headingLabel.addStyleName(style);
+        	leftLabel.addStyleName(style);
         }
-        leftContainer.add(headingLabel);
+        leftContainer.add(leftLabel);
     }
     
     /**
      * Sets the row heading adding a custom style
      */
     public void setHeading(String heading, String style, ClickHandler clickhandler) {
-        Label headingLabel = new Label(heading);
-        headingLabel.addClickHandler(clickhandler);
-        headingLabel.addStyleName("row-heading");
+        leftLabel = new Label(heading);
+        leftLabel.addClickHandler(clickhandler);
+        leftLabel.addStyleName("row-heading");
         if(StringHelper.isNotEmpty(style)) {
-            headingLabel.addStyleName(style);
+        	leftLabel.addStyleName(style);
         }
-        leftContainer.add(headingLabel);
+        leftContainer.add(leftLabel);
+    }
+    
+    public void removeHeadingStyle(String style){
+    	leftLabel.removeStyleName(style);
+    }
+    
+    public void addHeadingStyle(String style){
+    	leftLabel.addStyleName(style);
     }
     
     /**
@@ -233,7 +253,7 @@ public class AccountRow extends Composite {
      */
     public void setSubValue(String description, String style) {
         Label descriptionLabel = new Label(description);
-        descriptionLabel.addStyleName("row-sub");
+        //descriptionLabel.addStyleName("row-sub");
         if(StringHelper.isNotEmpty(style)) {
             descriptionLabel.addStyleName(style);
         }
@@ -241,15 +261,39 @@ public class AccountRow extends Composite {
     }
     
     /**
+     * Sets the row value
+     */
+    public void setSubValue(String value, Boolean positive) {
+        setValue(value, positive, null);
+    }
+    
+    /**
+     * Sets the row value adding a custom style
+     */
+    public void setSubValue(String value, Boolean positive, String style) {
+        Label valueLabel = new Label(value); 
+        
+        if(positive != null) {
+            valueLabel.addStyleName(positive ? "amount-positive" : "amount-negative");
+        }
+        if(StringHelper.isNotEmpty(style)) {
+            valueLabel.addStyleName(style);
+        }
+        rightContainer.add(valueLabel);
+    }
+    
+
+    
+    /**
      * Sets the row middle value adding a custom style
      */
     
     public void setMiddleValue(String value, String style) {
-    	Label valueLabel = new Label(value); 
+    	middleLabel = new Label(value); 
     	if(StringHelper.isNotEmpty(style)) {
-            valueLabel.addStyleName(style);
+    		middleLabel.addStyleName(style);
         }
-        middleContainer.add(valueLabel);
+        middleContainer.add(middleLabel);
     }
     
     /**
@@ -257,14 +301,34 @@ public class AccountRow extends Composite {
      */
    
     public void setMiddleValue(String value, String style, ClickHandler clickhandler) {
-    	Label valueLabel = new Label(value); 
+    	middleLabel = new Label(value); 
     	
-    	valueLabel.addClickHandler(clickhandler);
+    	middleLabel.addClickHandler(clickhandler);
     	if(StringHelper.isNotEmpty(style)) {
-            valueLabel.addStyleName(style);
+    		middleLabel.addStyleName(style);
         }
-        middleContainer.add(valueLabel);
+        middleContainer.add(middleLabel);
     }
+    
+    
+    public void removeMiddleStyle(String style){
+    	middleLabel.removeStyleName(style);
+    }
+    
+    public void addMiddleStyle(String style){
+    	middleLabel.addStyleName(style);
+    }
+    
+    public void setFreeSpaceValue(){
+    	freeSpaceContainer.add(new Label(""));
+    }
+    
+    /**
+     * Sets free space container visibility
+     */
+    public void setFreeSpaceVisibility(boolean isDisplayed) {       
+         freeSpaceContainer.setVisible(isDisplayed);
+    }    
     
     
     /**
@@ -288,6 +352,27 @@ public class AccountRow extends Composite {
     	
     	valueLabel.addClickHandler(clickhandler);
     	if(StringHelper.isNotEmpty(style)) {
+            valueLabel.addStyleName(style);
+        }
+        fourthContainer.add(valueLabel);
+    }
+    
+    /**
+     * Sets the row value
+     */
+    public void setFourthValue(String value, Boolean positive) {
+        setFourthValue(value, positive, null);
+    }
+    
+    /**
+     * Sets the row value adding a custom style
+     */
+    public void setFourthValue(String value, Boolean positive, String style) {
+        Label valueLabel = new Label(value);       
+        if(positive != null) {
+            valueLabel.addStyleName(positive ? "amount-positive" : "amount-negative");
+        }
+        if(StringHelper.isNotEmpty(style)) {
             valueLabel.addStyleName(style);
         }
         fourthContainer.add(valueLabel);

@@ -45,6 +45,10 @@ import nl.strohalm.cyclos.mobile.client.utils.Storage;
 import nl.strohalm.cyclos.mobile.client.utils.StringHelper;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyDownEvent;
+import com.google.gwt.event.dom.client.KeyDownHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -117,7 +121,17 @@ public class LoginPage extends Page {
         }
         container.add(principal);
         
-        password = new PasswordField(resolvePasswordInputMessage());                         
+        password = new PasswordField(resolvePasswordInputMessage());     
+        password.addKeyDownHandler(new KeyDownHandler() {
+
+            @Override
+            public void onKeyDown(KeyDownEvent event) {
+            	if(event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+            		//Window.alert("enter!");
+            	    loginAction.run();
+            	}
+            }
+        });
         container.add(password); 
         
         // If user session has expired, display a message

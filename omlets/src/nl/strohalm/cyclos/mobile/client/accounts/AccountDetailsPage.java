@@ -97,6 +97,8 @@ public class AccountDetailsPage extends Page {
         accountInformation.setLeftStyle("account-information-row-left-column");
         accountInformation.setRightStyle("account-information-row-right-column");
         accountInformation.setMiddleStyle("account-information-row-middle-column");
+        accountInformation.setFreeSpaceValue();
+        accountInformation.setFreeSpaceVisibility(false);
         accountInformation.setFourthStyle("account-information-row-fourth-column");
         accountInformation.setFourthVisibility(false);
         accountInformation.setHeading(accountName, "account-information-heading");
@@ -109,8 +111,9 @@ public class AccountDetailsPage extends Page {
                 //accountInformation.setSub(messages.availableBalance(status.getFormattedAvailableBalance()), "account-information-sub");
             	
             	accountInformation.setMiddleValue(status.getCurrency(),"");
-                accountInformation.setValue(status.getFormattedBalance(), "account-information-value");
-                accountInformation.setSubValue(status.getFormattedTrading(), "account-information-sub-value");
+                accountInformation.setValue(status.getFormattedTrading(), "account-information-value");
+                boolean positiveBalance = status.getBalance() > 0d;
+                accountInformation.setSubValue(status.getFormattedBalance(), positiveBalance, "account-information-sub-value");
             }                
         });                           
     }
@@ -153,6 +156,7 @@ public class AccountDetailsPage extends Page {
                 row.setHeading(name);
                 row.setMiddleVisibility(false);
                 row.setFourthVisibility(false);
+                row.setFreeSpaceVisibility(false);
                 String description = data.getDescription();
                 //if(description.length() > 30){
                 	//description = description.substring(0, 30) + "...";

@@ -24,7 +24,6 @@ import nl.strohalm.cyclos.mobile.client.Notification;
 import nl.strohalm.cyclos.mobile.client.ui.panels.BottomPanel;
 import nl.strohalm.cyclos.mobile.client.ui.panels.MenuPanel;
 import nl.strohalm.cyclos.mobile.client.ui.panels.TopPanel;
-import nl.strohalm.cyclos.mobile.client.utils.ComponentEventHelper;
 import nl.strohalm.cyclos.mobile.client.utils.PageAction;
 import nl.strohalm.cyclos.mobile.client.utils.ScreenHelper;
 import nl.strohalm.cyclos.mobile.client.utils.StringHelper;
@@ -32,9 +31,12 @@ import nl.strohalm.cyclos.mobile.client.utils.StringHelper;
 import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -114,12 +116,25 @@ public class MainLayout {
      */
     private void addResizeHandler() {
         // Adjust layout on resize events
-        Window.addResizeHandler(new ResizeHandler() {                              
-            @Override
-            public void onResize(ResizeEvent event) {
-                adjust();
-            }
-        });
+    	
+    	
+    	Window.addResizeHandler(new ResizeHandler() {
+
+    		  Timer resizeTimer = new Timer() {  
+    		    @Override
+    		    public void run() {
+    		    	adjust();
+    		    }
+    		  };
+
+    		  @Override
+    		  public void onResize(ResizeEvent event) {
+    		    resizeTimer.cancel();
+    		    resizeTimer.schedule(250);
+    		  }
+    	});
+    	
+
     }   
            
     /**

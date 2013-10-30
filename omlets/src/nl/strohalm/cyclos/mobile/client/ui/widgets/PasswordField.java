@@ -19,6 +19,7 @@
  */
 package nl.strohalm.cyclos.mobile.client.ui.widgets;
 
+import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.PasswordTextBox;
@@ -43,6 +44,8 @@ public class PasswordField extends Composite {
                 
         password = new PasswordTextBox();    
         password.setStyleName("form-input-field");
+        
+        
         
         setPlaceHolder(placeholder);
         
@@ -74,4 +77,8 @@ public class PasswordField extends Composite {
         password.setValue("");
     }
 
+    
+    public void addKeyDownHandler(KeyDownHandler handler) {
+    	password.addKeyDownHandler(handler);
+    }
 }
