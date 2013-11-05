@@ -1,12 +1,12 @@
 /home/deefactorial/git/omlets/omlets/platforms/android/bin/classes.dex : \
-/home/deefactorial/git/omlets/omlets/platforms/android/bin/classes/nl/strohalm/cyclos/mobile/R$xml.class \
-/home/deefactorial/git/omlets/omlets/platforms/android/bin/classes/nl/strohalm/cyclos/mobile/omlets.class \
-/home/deefactorial/git/omlets/omlets/platforms/android/bin/classes/nl/strohalm/cyclos/mobile/BuildConfig.class \
-/home/deefactorial/git/omlets/omlets/platforms/android/bin/classes/nl/strohalm/cyclos/mobile/R.class \
-/home/deefactorial/git/omlets/omlets/platforms/android/bin/classes/nl/strohalm/cyclos/mobile/R$layout.class \
-/home/deefactorial/git/omlets/omlets/platforms/android/bin/classes/nl/strohalm/cyclos/mobile/R$string.class \
-/home/deefactorial/git/omlets/omlets/platforms/android/bin/classes/nl/strohalm/cyclos/mobile/R$attr.class \
-/home/deefactorial/git/omlets/omlets/platforms/android/bin/classes/nl/strohalm/cyclos/mobile/R$drawable.class \
+/home/deefactorial/git/omlets/omlets/platforms/android/bin/classes/org/openmoney/omlets/mobile/R$xml.class \
+/home/deefactorial/git/omlets/omlets/platforms/android/bin/classes/org/openmoney/omlets/mobile/omlets.class \
+/home/deefactorial/git/omlets/omlets/platforms/android/bin/classes/org/openmoney/omlets/mobile/BuildConfig.class \
+/home/deefactorial/git/omlets/omlets/platforms/android/bin/classes/org/openmoney/omlets/mobile/R.class \
+/home/deefactorial/git/omlets/omlets/platforms/android/bin/classes/org/openmoney/omlets/mobile/R$layout.class \
+/home/deefactorial/git/omlets/omlets/platforms/android/bin/classes/org/openmoney/omlets/mobile/R$string.class \
+/home/deefactorial/git/omlets/omlets/platforms/android/bin/classes/org/openmoney/omlets/mobile/R$attr.class \
+/home/deefactorial/git/omlets/omlets/platforms/android/bin/classes/org/openmoney/omlets/mobile/R$drawable.class \
 /home/deefactorial/git/omlets/omlets/platforms/android/bin/classes/org/apache/cordova/batterystatus/BatteryListener.class \
 /home/deefactorial/git/omlets/omlets/platforms/android/bin/classes/org/apache/cordova/batterystatus/BatteryListener$1.class \
 /home/deefactorial/git/omlets/omlets/platforms/android/bin/classes/org/apache/cordova/filetransfer/FileProgressResult.class \

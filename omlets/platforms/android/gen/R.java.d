@@ -1,4 +1,4 @@
-/home/deefactorial/git/omlets/omlets/platforms/android/gen/nl/strohalm/cyclos/mobile/R.java \
+/home/deefactorial/git/omlets/omlets/platforms/android/gen/org/openmoney/omlets/mobile/R.java \
  : /home/deefactorial/git/omlets/omlets/platforms/android/res/drawable-mdpi/ic_launcher.png \
 /home/deefactorial/git/omlets/omlets/platforms/android/res/drawable-mdpi/icon.png \
 /home/deefactorial/git/omlets/omlets/platforms/android/res/xml/config.xml \

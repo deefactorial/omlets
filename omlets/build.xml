@@ -8,7 +8,7 @@
    			</fileset>
 		</delete>    
 	   	<mkdir dir="www/css" />
-	    <mkdir dir="www/cyclos" />
+	    <mkdir dir="www/omlets" />
 	    <mkdir dir="www/images" />
 	    <mkdir dir="www/js" />	    
 	    <mkdir dir="www/res" />
@@ -16,8 +16,8 @@
 	    <copy todir="www/css" >  
         	<fileset dir="war/css" excludes="**/*.svn"/>  
         </copy>
-        <copy todir="www/cyclos" >  
-        	<fileset dir="war/cyclos" excludes="**/*.svn"/>  
+        <copy todir="www/omlets" >  
+        	<fileset dir="war/omlets" excludes="**/*.svn"/>  
         </copy> 
   		<copy todir="www/images" >  
         	<fileset dir="war/images" excludes="**/*.svn,114.png,144.png,57.png,64.png"/>  
@@ -44,7 +44,7 @@
    			</fileset>
 		</delete>    
 	   	<mkdir dir="../../openmoney/webclient/css" />
-	    <mkdir dir="../../openmoney/webclient/cyclos" />
+	    <mkdir dir="../../openmoney/webclient/omlets" />
 	    <mkdir dir="../../openmoney/webclient/images" />
 	    <mkdir dir="../../openmoney/webclient/js" />	    
 	    <mkdir dir="../../openmoney/webclient/res" />
@@ -52,8 +52,8 @@
 	    <copy todir="../../openmoney/webclient/css" >  
         	<fileset dir="war/css" excludes="**/*.svn"/>  
         </copy>
-        <copy todir="../../openmoney/webclient/cyclos" >  
-        	<fileset dir="war/cyclos" excludes="**/*.svn"/>  
+        <copy todir="../../openmoney/webclient/omlets" >  
+        	<fileset dir="war/omlets" excludes="**/*.svn"/>  
         </copy> 
   		<copy todir="../../openmoney/webclient/images" >  
         	<fileset dir="war/images" excludes="**/*.svn,114.png,144.png,57.png,64.png"/>  
