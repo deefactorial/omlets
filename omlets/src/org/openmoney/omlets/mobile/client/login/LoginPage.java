@@ -35,6 +35,7 @@ import org.openmoney.omlets.mobile.client.ui.Icon;
 import org.openmoney.omlets.mobile.client.ui.Page;
 import org.openmoney.omlets.mobile.client.ui.PageAnchor;
 import org.openmoney.omlets.mobile.client.ui.panels.SquarePanel;
+import org.openmoney.omlets.mobile.client.ui.widgets.HyperLink;
 import org.openmoney.omlets.mobile.client.ui.widgets.IconLabel;
 import org.openmoney.omlets.mobile.client.ui.widgets.LabelField;
 import org.openmoney.omlets.mobile.client.ui.widgets.PasswordField;
@@ -47,6 +48,8 @@ import org.openmoney.omlets.mobile.client.utils.Storage;
 import org.openmoney.omlets.mobile.client.utils.StringHelper;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
@@ -147,6 +150,29 @@ public class LoginPage extends Page {
             }
         });
         container.add(password); 
+        
+        ClickHandler handle = new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				
+		    	PageAction action =  new PageAction() {
+		    		
+		    		@Override
+		    		public void run() {
+		    			Navigation.get().go(PageAnchor.FORGOTPASSWORD);
+		    		}
+		    		
+		    		@Override
+		    		public String getLabel() {
+		    			return "Forgot Password";
+		    		}
+		    	};
+				action.run();
+			}
+		};
+        HyperLink forgotPassword = new HyperLink("javascript:;","Forgot your password ?",handle);
+        container.add(forgotPassword);
         
         // If user session has expired, display a message
         if(LoggedUser.get().isSessionExpired()) {

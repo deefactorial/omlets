@@ -29,8 +29,11 @@ public class omlets extends DroidGap
     {
         super.onCreate(savedInstanceState);
         // Set by <content src="index.html" /> in config.xml
+        super.setIntegerProperty("splashscreen", R.drawable.screen_portrait);
         super.loadUrl(Config.getStartUrl());
         //super.loadUrl("file:///android_asset/www/index.html")
+        
+        
     }
 }
 

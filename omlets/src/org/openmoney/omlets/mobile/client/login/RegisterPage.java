@@ -59,8 +59,6 @@ public class RegisterPage extends Page {
 
     private AccessService accessService = GWT.create(AccessService.class);
     
-    private TextField     firstname;
-    private TextField     lastname;
     
     private TextField     principal;
     private EmailTextField    email;
@@ -97,36 +95,19 @@ public class RegisterPage extends Page {
                 
         SquarePanel container = new SquarePanel(); 
         container.addStyleName("register");
-        
-        // Secure login message
-//        IconLabel loginMessage = new IconLabel(messages.secureLogin(), Icon.LOGIN.image());
-//        loginMessage.addStyleName("login-icon-label");
-//        loginMessage.addTextStyleName("login-icon-label-text");        
-//        container.add(loginMessage);
-        
-        // Custom welcome message
-//        String welcomeText = data.getWelcomeMessage();       
-//        if(StringHelper.isNotEmpty(welcomeText)) {
-//            LabelField welcomeMessage = new LabelField(welcomeText);
-//            welcomeMessage.addStyleName("login-welcome-text");
-//            container.add(welcomeMessage);
-//        }                      
+                        
         loginLabel = new LabelField("Register as : ");
         loginLabel.setStyleName("register-label");
         
         container.add(loginLabel);
-        
-        firstname = new TextField("Type your first name here.");
-        container.add(firstname);
-        lastname = new TextField("Type your last name here.");
-        container.add(lastname);
+       
         
         principal = new TextField(resolvePrincipalInputMessage());        
         
-        // If a principal is already set shows a label instead of text box
+        
         if(principalName != null) {
             principal.setValue(principalName);
-            //principal.setReadOnly(true);
+            //principal.setReadOnly(true); // If a principal is already set shows a label instead of text box
         }
         container.add(principal);
         
@@ -212,7 +193,7 @@ public class RegisterPage extends Page {
                 // Validate input
                 if(validate()) {                
                     // Execute user login
-                    accessService.register(firstname.getValue(), lastname.getValue(), principal.getValue(), email.getValue(), password.getValue(), password2.getValue(), callback);
+                    accessService.register( principal.getValue(), email.getValue(), password.getValue(), password2.getValue(), callback);
                 } else {
                 	this.cancelCallback();
                 }
@@ -230,7 +211,7 @@ public class RegisterPage extends Page {
 	            		//Go to login page and display a successful registration message. approval pending.
 	            		
 	            		Parameters params = new Parameters();
-	            		params.add(ParameterKey.SUCCESS, "Successfully Registered an account! You will recieve an email notification upon approval.)");
+	            		params.add(ParameterKey.SUCCESS, "Successfully Registered an account!<br/>You will recieve an email notification upon approval.");
 	            		Navigation.get().go(PageAnchor.LOGIN, params);
 	            		
 	            	} else {
@@ -270,33 +251,33 @@ public class RegisterPage extends Page {
     /**
      * Client side input validation
      */
-    private boolean validate() {
-        // Hide previous notifications
-        Notification.get().hide();
-        
-        // Validate all feilds
-        if(		StringHelper.isEmpty(lastname.getValue()) || 
-        		StringHelper.isEmpty(firstname.getValue()) ||
-        		StringHelper.isEmpty(email.getValue()) ||
-        		StringHelper.isEmpty(principal.getValue()) || 
-        		StringHelper.isEmpty(password.getValue()) ||
-        		StringHelper.isEmpty(password2.getValue())) {
-            Notification.get().error("Registration feilds cannot be empty");
-            return false;
-        }
-        
-        // check password equality
-        if( !password.getValue().equals( password2.getValue() ) ){
-        	Notification.get().error("Passwords are not equal");
-            return false;
-        }
-        
-        // password size
-        if( password.getValue().length() < 7 ) {
-        	Notification.get().error("Password is too short!");
-            return false;
-        }
 
-        return true;
-    }
+	private boolean validate() {
+	        // Hide previous notifications
+	        Notification.get().hide();
+	        
+	        // Validate all feilds
+	        if(		
+	        		StringHelper.isEmpty(email.getValue()) ||
+	        		StringHelper.isEmpty(principal.getValue()) || 
+	        		StringHelper.isEmpty(password.getValue()) ||
+	        		StringHelper.isEmpty(password2.getValue())) {
+	            Notification.get().error("Registration fields cannot be empty");
+	            return false;
+	        }
+	        
+	        // check password equality
+	        if( !password.getValue().equals( password2.getValue() ) ){
+	        	Notification.get().error("Passwords are not equal");
+	            return false;
+	        }
+	        
+	        // password size
+	        if( password.getValue().length() < 2 ) {
+	        	Notification.get().error("Password is too short!");
+	            return false;
+	        }
+	
+	        return true;
+	 }
 }

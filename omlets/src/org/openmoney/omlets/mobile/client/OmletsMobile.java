@@ -144,12 +144,21 @@ public class OmletsMobile implements EntryPoint {
                 //throw new IllegalStateException(Messages.Accessor.get().loadingApplicationError());
             	startApplication();
             }
-        });                              
-        phoneGap.initializePhoneGap(32*1000); // 32 seconds
+        });              
         
-        // set viewport and other settings for mobile
-        //MGWT.applySettings(MGWTSettings.getAppSetting());
+        int timeout = 250; //time out right away
+        if (isPhoneGap()) {
+        	timeout = 32*1000;// 32 seconds to time out
+        }
+        
+        phoneGap.initializePhoneGap(timeout); 
+
+        
     }
+    
+    public native boolean isPhoneGap() /*-{
+    	return $wnd.isPhoneGap();
+	}-*/;
    
     /**
      * Sets application general data

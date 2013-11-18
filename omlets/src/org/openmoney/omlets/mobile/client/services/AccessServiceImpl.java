@@ -18,6 +18,7 @@
  */
 package org.openmoney.omlets.mobile.client.services;
 
+import org.openmoney.omlets.mobile.client.model.ForgotPasswordConfirm;
 import org.openmoney.omlets.mobile.client.model.InitialData;
 import org.openmoney.omlets.mobile.client.model.Parameters;
 import org.openmoney.omlets.mobile.client.utils.RestRequest;
@@ -40,8 +41,20 @@ public class AccessServiceImpl implements AccessService {
     }
     
     @Override
-    public void register(String firstname, String lastname, String username, String email, String password, String password2, AsyncCallback<InitialData> callback) {
+    public void register(String username, String email, String password, String password2, AsyncCallback<InitialData> callback) {
         RestRequest<InitialData> request = new RestRequest<InitialData>(RequestBuilder.POST, "access/register");
+        Parameters params = new Parameters();
+        params.add("username", username);
+        params.add("email", email);
+        params.add("password", password);
+        params.add("password2", password2);
+        request.setParameters(params);
+        request.send(callback);
+    }
+    
+    @Override
+    public void updateProfile(String firstname, String lastname, String username, String email, String password, String password2, AsyncCallback<InitialData> callback) {
+        RestRequest<InitialData> request = new RestRequest<InitialData>(RequestBuilder.POST, "access/updateProfile");
         Parameters params = new Parameters();
         params.add("firstname",firstname);
         params.add("lastname", lastname);
@@ -49,6 +62,15 @@ public class AccessServiceImpl implements AccessService {
         params.add("email", email);
         params.add("password", password);
         params.add("password2", password2);
+        request.setParameters(params);
+        request.sendAuthenticated(callback);
+    }
+    
+    @Override
+    public void forgotPassword(String email, AsyncCallback<ForgotPasswordConfirm> callback) {
+        RestRequest<ForgotPasswordConfirm> request = new RestRequest<ForgotPasswordConfirm>(RequestBuilder.POST, "access/forgotPassword");
+        Parameters params = new Parameters();
+        params.add("email", email);
         request.setParameters(params);
         request.send(callback);
     }

@@ -24,6 +24,7 @@ import org.openmoney.omlets.mobile.client.configuration.ConfigurationPage;
 import org.openmoney.omlets.mobile.client.contacts.ContactSelectPage;
 import org.openmoney.omlets.mobile.client.help.HelpPage;
 import org.openmoney.omlets.mobile.client.loadgeneraldata.LoadGeneralDataPage;
+import org.openmoney.omlets.mobile.client.login.ForgotPasswordPage;
 import org.openmoney.omlets.mobile.client.login.LoginPage;
 import org.openmoney.omlets.mobile.client.login.RegisterPage;
 import org.openmoney.omlets.mobile.client.model.AppState;
@@ -35,6 +36,7 @@ import org.openmoney.omlets.mobile.client.payments.PaymentsPage;
 import org.openmoney.omlets.mobile.client.settings.SettingsCreateCurrency;
 import org.openmoney.omlets.mobile.client.settings.SettingsJoinCurrency;
 import org.openmoney.omlets.mobile.client.settings.SettingsPage;
+import org.openmoney.omlets.mobile.client.settings.SettingsProfilePage;
 import org.openmoney.omlets.mobile.client.ui.Page;
 import org.openmoney.omlets.mobile.client.ui.PageAnchor;
 import org.openmoney.omlets.mobile.client.ui.widgets.LogoutDialog;
@@ -277,6 +279,9 @@ public class Navigation {
             case SETTINGS_CREATE_CURRENCY:
             	page = new SettingsCreateCurrency();
             	break;
+            case SETTINGS_PROFILE_PAGE:
+            	page = new SettingsProfilePage();
+            	break;
 //            case CONTACTS:
 //                page = new ContactsPage();
 //                break;
@@ -297,6 +302,9 @@ public class Navigation {
                 break;   
             case REGISTER:
                 page = new RegisterPage();
+                break;   
+            case FORGOTPASSWORD:
+                page = new ForgotPasswordPage();
                 break;   
             case MAKE_PAYMENT:
                 page = new MakePaymentPage();

@@ -72,12 +72,17 @@ public class RestRequest<T> {
             JSONValue jsonValue = null;
             boolean isJson = ConnectionHelper.isJSON(response);
             ErrorHandler.debug("RestResponseIsJson:"+isJson);
+            ErrorHandler.debug("RestResponseText:"+response.getText());
             String contentType = response.getHeader("Content-Type");
             if (isJson) {
-                jsonValue = JSONParser.parseStrict(response.getText());
+            	try {
+            		jsonValue = JSONParser.parseStrict(response.getText());
+            	} catch (Exception e){
+            		callback.onFailure(e);
+            	}
             }
             
-            ErrorHandler.debug("RestResponseText:"+response.getText());
+            
             // Successful request
             if (response.getStatusCode() == Response.SC_OK) {
                 
@@ -95,6 +100,7 @@ public class RestRequest<T> {
                              
                 // Otherwise throw response format exception
                 callback.onFailure(new UnexpectedRestResponseFormatException(contentType));
+                
             } else {
                 if (isJson) {
                     try {                      
@@ -104,9 +110,11 @@ public class RestRequest<T> {
                     } catch(Exception e) {
                         // Otherwise throw response format exception
                         callback.onFailure(new UnexpectedRestResponseFormatException(contentType));
+                        
                     }                    
                 } else {
                     callback.onFailure(new StatusCodeException(response.getStatusCode(), response.getStatusText()));
+                    
                 }
             }                     
         }
@@ -250,6 +258,7 @@ public class RestRequest<T> {
             return new Request() {
                 @Override
                 public void cancel() {
+                	
                 }
 
                 @Override

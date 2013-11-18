@@ -36,6 +36,7 @@ public enum PageAnchor {
     LOAD_GENERAL_DATA(PageGroup.GENERAL),
     LOGIN(PageGroup.LOGIN),
     REGISTER(PageGroup.LOGIN),   
+    FORGOTPASSWORD(PageGroup.LOGIN),
     MAKE_PAYMENT(PageGroup.PAYMENTS),
     MY_PROFILE(PageGroup.GENERAL),    
     PAYMENTS(PageGroup.PAYMENTS),
@@ -47,7 +48,8 @@ public enum PageAnchor {
     USER_SELECT(PageGroup.PAYMENTS),
     SETTINGS(PageGroup.SETTINGS),
     SETTINGS_JOIN_CURRENCY(PageGroup.SETTINGS),
-    SETTINGS_CREATE_CURRENCY(PageGroup.SETTINGS);
+    SETTINGS_CREATE_CURRENCY(PageGroup.SETTINGS),
+    SETTINGS_PROFILE_PAGE(PageGroup.SETTINGS);
     
     private PageGroup pageGroup;
     

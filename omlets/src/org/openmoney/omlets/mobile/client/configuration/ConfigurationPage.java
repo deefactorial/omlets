@@ -126,8 +126,8 @@ public class ConfigurationPage extends Page {
             container.add(omletsUrl);
             container.add(example);
         }
-        container.add(language);
-        container.add(languages);
+        //container.add(language);
+        //container.add(languages);
         
         if(StringHelper.isNotEmpty(appVersion)) {
             container.add(versionContainer);

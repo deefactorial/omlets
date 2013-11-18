@@ -29,10 +29,12 @@ import org.openmoney.omlets.mobile.client.ui.widgets.SimpleDataList;
 import org.openmoney.omlets.mobile.client.ui.widgets.UserRow;
 import org.openmoney.omlets.mobile.client.utils.ParameterKey;
 import org.openmoney.omlets.mobile.client.utils.ResultPage;
+import org.openmoney.omlets.mobile.client.utils.StringHelper;
 
 import com.google.gwt.cell.client.Cell.Context;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -60,7 +62,25 @@ public class SettingsPage extends Page {
         // List pages uses fixed notification layout
         Notification.get().setLayout(NotificationLayout.FIXED);
         
-        final String keywords = getParameters() != null ? getParameters().getString(ParameterKey.KEYWORDS) : null; 
+        if (getParameters() != null) {
+	        String success = getParameters().getString(ParameterKey.SUCCESS);
+	        String error = getParameters().getString(ParameterKey.ERROR);
+	        
+	        if ( (success != null) && StringHelper.isNotEmpty(success) ){
+
+               
+	        	Notification.get().success(success);
+	        } else if ( (error != null) && StringHelper.isNotEmpty(error)){
+	        	Notification.get().error(error);
+	        }
+            Timer t = new Timer() {
+                @Override
+                public void run() {
+                    Notification.get().hide();
+                }                
+            };
+            t.schedule(5000);
+        }
         
         dataList = new SimpleDataList<SettingsMenu>() {
             @Override
@@ -84,14 +104,21 @@ public class SettingsPage extends Page {
             protected void onSearchData(AsyncCallback<JsArray<SettingsMenu>> callback) {
             
             	JsArray<SettingsMenu> result = JavaScriptObject.createArray().cast();
+            	
             	SettingsMenu menu = JavaScriptObject.createObject().cast();
             	menu.setMenuName("Join A Currency > ");
             	menu.setPage(PageAnchor.SETTINGS_JOIN_CURRENCY);
              	result.push(menu);
+             	
             	SettingsMenu create = JavaScriptObject.createObject().cast();
             	create.setMenuName("Create A Currency > ");
             	create.setPage(PageAnchor.SETTINGS_CREATE_CURRENCY);
              	result.push(create);
+             	
+            	SettingsMenu profile = JavaScriptObject.createObject().cast();
+            	profile.setMenuName("Profile Settings > ");
+            	profile.setPage(PageAnchor.SETTINGS_PROFILE_PAGE);
+             	result.push(profile);
               	
             
             	callback.onSuccess(result);

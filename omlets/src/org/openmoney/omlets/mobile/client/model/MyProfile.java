@@ -34,12 +34,20 @@ public class MyProfile extends Entity {
         return $wnd.cleanString(this.name);
     }-*/;
     
+    public final native String getFirstName() /*-{
+    	return $wnd.cleanString(this.firstname);
+	}-*/;
+    
+    public final native String getLastName() /*-{
+		return $wnd.cleanString(this.lastname);
+	}-*/;
+    
     public final native String getUsername() /*-{
         return $wnd.cleanString(this.username);
     }-*/;
     
     public final native String getEmail() /*-{
-        return $wnd.cleanString(this.username);
+        return $wnd.cleanString(this.email);
     }-*/;
 
     public final native JsArrayString getHiddenFields() /*-{

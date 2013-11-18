@@ -3,7 +3,6 @@
 	<inherits name="com.google.gwt.user.User" />
 	<inherits name='com.googlecode.gwtphonegap.PhoneGap' />
 	<inherits name="com.google.gwt.i18n.CldrLocales"/>
-	<inherits name='com.googlecode.mgwt.MGWT'/>
 	<source path="client" />
 	<entry-point class="org.openmoney.omlets.mobile.client.OmletsMobile" />
 	<replace-with class="org.openmoney.omlets.mobile.client.services.AccessServiceImpl">
@@ -37,6 +36,5 @@
 	<set-property name="gwt.logging.enabled" value="FALSE" />
 	<set-property name="user.agent" value="safari" />	
 	<set-property name="phonegap.env" value="yes" />
-	<set-property name="mgwt.os" value="android,iphone,ipad,desktop" /> <!-- android,retina,iphone,desktop,ipad,ipad_retina,blackberry -->
 	<add-linker name="xsiframe" />
 </module>

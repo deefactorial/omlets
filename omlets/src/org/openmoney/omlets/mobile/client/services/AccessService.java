@@ -18,6 +18,7 @@
  */
 package org.openmoney.omlets.mobile.client.services;
 
+import org.openmoney.omlets.mobile.client.model.ForgotPasswordConfirm;
 import org.openmoney.omlets.mobile.client.model.InitialData;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -37,7 +38,18 @@ public interface AccessService {
     /**
      * user registration
      */
-    void register(String firstname, String lastname, String username, String email, String password, String password2, AsyncCallback<InitialData> callback);
+    void register( String username, String email, String password, String password2, AsyncCallback<InitialData> callback);
 
+    
+    /**
+     * user registration
+     */
+    void updateProfile(String firstname, String lastname, String username, String email, String password, String password2, AsyncCallback<InitialData> callback);
+
+
+    /**
+     * forgot password 
+     */
+    void forgotPassword( String email, AsyncCallback<ForgotPasswordConfirm> callback);
 
 }

@@ -56,4 +56,4 @@
 /home/deefactorial/git/omlets/omlets/platforms/android/bin/classes/org/apache/cordova/vibration/Vibration.class \
 /home/deefactorial/git/omlets/omlets/platforms/android/bin/classes/org/apache/cordova/device/Device.class \
 /home/deefactorial/git/omlets/omlets/platforms/android/bin/classes/org/apache/cordova/device/Device$1.class \
-/home/deefactorial/git/omlets/omlets/platforms/android/bin/dexedLibs/cordova-3.0.0-56b65523c69ee5728d19fb9cbaee204f.jar \
+/home/deefactorial/git/omlets/omlets/platforms/android/bin/dexedLibs/cordova-3.1.0-0df46f9c988041e518d8513fd3bc6973.jar \

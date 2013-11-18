@@ -29,6 +29,7 @@ import org.openmoney.omlets.mobile.client.utils.ScreenHelper;
 import org.openmoney.omlets.mobile.client.utils.StringHelper;
 
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.event.dom.client.DomEvent.Type;
 import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
@@ -41,7 +42,6 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.googlecode.mgwt.dom.client.event.orientation.OrientationChangeEvent;
 import com.googlecode.mgwt.dom.client.event.orientation.OrientationChangeHandler;
-import com.googlecode.mgwt.ui.client.MGWT;
 
 
 
@@ -92,9 +92,9 @@ public class MainLayout {
         mainContainer = new ScrollPanel();
         mainContainer.setStyleName("main");
         mainContainer.getElement().setId("mainContainer");
-        mainContainer.getElement().getStyle().setPaddingRight(15, Unit.PX);
-        
-        MGWT.addOrientationChangeHandler(new MyOrientationChangeHandler());
+        //mainContainer.getElement().getStyle().setPaddingRight(15, Unit.PX);
+
+        this.addOrientationHandler();
         
         notificationContainer = new SimplePanel();
         notificationContainer.setVisible(false);
@@ -118,24 +118,15 @@ public class MainLayout {
         addResizeHandler();
     }      
     
-    private class MyOrientationChangeHandler implements OrientationChangeHandler {
-        @Override
-        public void onOrientationChanged(OrientationChangeEvent event) {
-        	adjust();
-        	return;
-//            switch (event.getOrientation()) {
-//                case LANDSCAPE:
-//                    // handle landscape orientation
-//                	adjust();
-//                    return;
-//                case PORTRAIT:
-//                    // handle portrait orientation
-//                	adjust();
-//                    return;
-//
-//            }
-        }
+    public void onOrientation(){
+    	adjust();
     }
+    
+    private final native void addOrientationHandler() /*-{
+	    $wnd.addEventListener('orientationchange', new function(){
+	            this.@org.openmoney.omlets.mobile.client.ui.MainLayout::onOrientation();
+	    }, false);
+	}-*/;
     
     
     
